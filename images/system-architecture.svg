@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="640" viewBox="0 0 920 640" font-family="Helvetica, Arial, sans-serif">
+  <rect width="920" height="640" fill="#fafbfc"/>
+  <text x="460" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#222">STM32F103 内部系统结构框图（简化）</text>
+
+  <!-- Cortex-M3 core -->
+  <rect x="330" y="55" width="260" height="90" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+  <text x="460" y="80" text-anchor="middle" font-size="15" font-weight="bold" fill="#1e3a8a">Cortex-M3 内核</text>
+  <text x="460" y="102" text-anchor="middle" font-size="12" fill="#1e3a8a">CPU 核心  ·  NVIC 中断控制器  ·  SysTick</text>
+  <text x="460" y="122" text-anchor="middle" font-size="12" fill="#1e3a8a">调试口 SWD  ·  Thumb-2 指令集</text>
+
+  <!-- three buses -->
+  <text x="150" y="180" text-anchor="middle" font-size="12" fill="#555">ICode 指令总线</text>
+  <text x="320" y="180" text-anchor="middle" font-size="12" fill="#555">DCode 数据总线</text>
+  <text x="500" y="180" text-anchor="middle" font-size="12" fill="#555">System 系统总线</text>
+  <line x1="380" y1="145" x2="150" y2="195" stroke="#888" stroke-width="1.5"/>
+  <line x1="440" y1="145" x2="320" y2="195" stroke="#888" stroke-width="1.5"/>
+  <line x1="520" y1="145" x2="500" y2="195" stroke="#888" stroke-width="1.5"/>
+
+  <!-- Flash & SRAM -->
+  <rect x="60" y="210" width="180" height="70" rx="5" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+  <text x="150" y="238" text-anchor="middle" font-size="14" font-weight="bold" fill="#14532d">Flash 闪存 64KB</text>
+  <text x="150" y="260" text-anchor="middle" font-size="11" fill="#14532d">存程序代码/常量，断电不丢</text>
+
+  <rect x="260" y="210" width="180" height="70" rx="5" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+  <text x="350" y="238" text-anchor="middle" font-size="14" font-weight="bold" fill="#14532d">SRAM 20KB</text>
+  <text x="350" y="260" text-anchor="middle" font-size="11" fill="#14532d">运行内存，变量/栈/堆</text>
+
+  <!-- Bus matrix -->
+  <rect x="470" y="205" width="150" height="80" rx="5" fill="#fef9c3" stroke="#ca8a04" stroke-width="2"/>
+  <text x="545" y="235" text-anchor="middle" font-size="14" font-weight="bold" fill="#713f12">总线矩阵</text>
+  <text x="545" y="256" text-anchor="middle" font-size="11" fill="#713f12">Bus Matrix 仲裁</text>
+  <text x="545" y="273" text-anchor="middle" font-size="11" fill="#713f12">CPU 与 DMA 共用</text>
+
+  <line x1="150" y1="210" x2="150" y2="195" stroke="#888" stroke-width="1.5"/>
+  <line x1="350" y1="210" x2="350" y2="195" stroke="#888" stroke-width="1.5"/>
+  <line x1="500" y1="195" x2="545" y2="205" stroke="#888" stroke-width="1.5"/>
+  <line x1="545" y1="285" x2="545" y2="310" stroke="#888" stroke-width="1.5"/>
+  <line x1="440" y1="245" x2="470" y2="245" stroke="#888" stroke-width="1.5"/>
+
+  <!-- DMA -->
+  <rect x="60" y="310" width="160" height="60" rx="5" fill="#fce7f3" stroke="#db2777" stroke-width="2"/>
+  <text x="140" y="335" text-anchor="middle" font-size="13" font-weight="bold" fill="#831843">DMA1 控制器</text>
+  <text x="140" y="355" text-anchor="middle" font-size="11" fill="#831843">外设↔内存 直搬数据</text>
+  <line x1="220" y1="340" x2="470" y2="260" stroke="#db2777" stroke-width="1.2" stroke-dasharray="4,3"/>
+
+  <!-- AHB bus -->
+  <rect x="430" y="310" width="230" height="34" rx="4" fill="#e0e7ff" stroke="#4f46e5" stroke-width="2"/>
+  <text x="545" y="332" text-anchor="middle" font-size="13" font-weight="bold" fill="#312e81">AHB 高速总线 (72MHz)</text>
+  <line x1="545" y1="285" x2="545" y2="310" stroke="#888" stroke-width="1.5"/>
+
+  <!-- AHB direct peripherals -->
+  <rect x="690" y="305" width="180" height="44" rx="4" fill="#e0e7ff" stroke="#4f46e5" stroke-width="1.5"/>
+  <text x="780" y="325" text-anchor="middle" font-size="12" font-weight="bold" fill="#312e81">RCC 时钟控制</text>
+  <text x="780" y="342" text-anchor="middle" font-size="11" fill="#312e81">Flash 接口 / 复位</text>
+  <line x1="660" y1="327" x2="690" y2="327" stroke="#888" stroke-width="1.5"/>
+
+  <!-- APB bridges -->
+  <rect x="400" y="380" width="120" height="30" rx="4" fill="#ffedd5" stroke="#ea580c" stroke-width="1.5"/>
+  <text x="460" y="400" text-anchor="middle" font-size="12" fill="#7c2d12">APB2 桥 (72MHz)</text>
+  <rect x="560" y="380" width="120" height="30" rx="4" fill="#ffedd5" stroke="#ea580c" stroke-width="1.5"/>
+  <text x="620" y="400" text-anchor="middle" font-size="12" fill="#7c2d12">APB1 桥 (36MHz)</text>
+  <line x1="500" y1="344" x2="460" y2="380" stroke="#888" stroke-width="1.5"/>
+  <line x1="590" y1="344" x2="620" y2="380" stroke="#888" stroke-width="1.5"/>
+
+  <!-- APB2 peripherals -->
+  <rect x="300" y="430" width="240" height="180" rx="5" fill="#fff7ed" stroke="#ea580c" stroke-width="1.5"/>
+  <text x="420" y="450" text-anchor="middle" font-size="13" font-weight="bold" fill="#7c2d12">APB2（高速外设）</text>
+  <text x="315" y="475" font-size="11.5" fill="#7c2d12">• GPIOA / GPIOB / GPIOC</text>
+  <text x="315" y="495" font-size="11.5" fill="#7c2d12">• USART1、SPI1、TIM1</text>
+  <text x="315" y="515" font-size="11.5" fill="#7c2d12">• ADC1/ADC2、AFIO 复用</text>
+  <text x="315" y="535" font-size="11.5" fill="#7c2d12">• EXTI 外部中断</text>
+  <text x="315" y="565" font-size="10.5" fill="#9a3412">（重要/高速外设挂这里）</text>
+
+  <!-- APB1 peripherals -->
+  <rect x="560" y="430" width="260" height="180" rx="5" fill="#fff7ed" stroke="#ea580c" stroke-width="1.5"/>
+  <text x="690" y="450" text-anchor="middle" font-size="13" font-weight="bold" fill="#7c2d12">APB1（低速外设）</text>
+  <text x="575" y="475" font-size="11.5" fill="#7c2d12">• USART2 / USART3</text>
+  <text x="575" y="495" font-size="11.5" fill="#7c2d12">• I2C1/2、SPI2</text>
+  <text x="575" y="515" font-size="11.5" fill="#7c2d12">• TIM2/3/4（通用定时器）</text>
+  <text x="575" y="535" font-size="11.5" fill="#7c2d12">• CAN、USB 设备、BKP</text>
+  <text x="575" y="565" font-size="10.5" fill="#9a3412">（时钟最高 36MHz，别挂错）</text>
+</svg>

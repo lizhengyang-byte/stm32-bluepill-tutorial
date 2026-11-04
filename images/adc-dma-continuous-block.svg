@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 320" font-family="Helvetica,Arial,sans-serif" font-size="13">
+  <rect width="760" height="320" fill="#fafbfc"/>
+  <text x="380" y="24" text-anchor="middle" font-size="16" font-weight="bold" fill="#222">ADC + DMA 连续采样的数据流（F103）</text>
+
+  <!-- ADC block -->
+  <rect x="40" y="80" width="180" height="120" fill="#cfe8ff" stroke="#3a78b8" stroke-width="2"/>
+  <text x="130" y="105" text-anchor="middle" font-weight="bold" font-size="14">ADC1</text>
+  <text x="130" y="128" text-anchor="middle" font-size="11">CH0 (PA0) → 数字量</text>
+  <text x="130" y="146" text-anchor="middle" font-size="11">CH1 (PA1) → 数字量</text>
+  <text x="130" y="170" text-anchor="middle" font-size="11" fill="#1a4a78">规则组循环扫描</text>
+  <text x="130" y="188" text-anchor="middle" font-size="11" fill="#1a4a78">每次转换完置 EOC</text>
+
+  <!-- DR -->
+  <rect x="240" y="120" width="90" height="40" fill="#fff" stroke="#333"/>
+  <text x="285" y="145" text-anchor="middle" font-weight="bold">ADC_DR</text>
+  <line x1="220" y1="140" x2="240" y2="140" stroke="#333" stroke-width="2"/>
+
+  <!-- DMA -->
+  <rect x="360" y="80" width="180" height="120" fill="#ffe3b3" stroke="#c08020" stroke-width="2"/>
+  <text x="450" y="105" text-anchor="middle" font-weight="bold" font-size="14">DMA1_CH1</text>
+  <text x="450" y="128" text-anchor="middle" font-size="11">源地址固定 = &ADC_DR</text>
+  <text x="450" y="146" text-anchor="middle" font-size="11">目的地址自增 = adc_buf</text>
+  <text x="450" y="164" text-anchor="middle" font-size="11">模式 = Circular</text>
+  <text x="450" y="182" text-anchor="middle" font-size="11" fill="#7a4a10">半传输 / 全传输中断可选</text>
+  <line x1="330" y1="140" x2="360" y2="140" stroke="#b83a3a" stroke-width="2" marker-end="url(#b)"/>
+
+  <!-- buffer -->
+  <rect x="580" y="80" width="140" height="120" fill="#d8f0d0" stroke="#3a883a" stroke-width="2"/>
+  <text x="650" y="105" text-anchor="middle" font-weight="bold" font-size="14">SRAM</text>
+  <text x="650" y="128" text-anchor="middle" font-size="11">adc_buf[0] ← CH0</text>
+  <text x="650" y="146" text-anchor="middle" font-size="11">adc_buf[1] ← CH1</text>
+  <text x="650" y="164" text-anchor="middle" font-size="11">adc_buf[2] ← CH0</text>
+  <text x="650" y="182" text-anchor="middle" font-size="11">adc_buf[3] ← CH1 …</text>
+  <line x1="540" y1="140" x2="580" y2="140" stroke="#3a883a" stroke-width="2" marker-end="url(#b)"/>
+
+  <!-- CPU -->
+  <rect x="200" y="230" width="360" height="60" fill="#f0f0f0" stroke="#666" stroke-dasharray="4,3"/>
+  <text x="380" y="255" text-anchor="middle" font-weight="bold">Cortex-M3 CPU</text>
+  <text x="380" y="275" text-anchor="middle" font-size="11" fill="#555">配置一次后完全空闲，主循环里随时读 adc_buf 算平均 / 滤波</text>
+
+  <defs>
+    <marker id="b" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 z" fill="#333"/>
+    </marker>
+  </defs>
+
+  <text x="40" y="310" font-size="11" fill="#666">关键点：ADC 每完成一次转换，就向 DMA1_CH1 发一次硬件请求；DMA 把 DR 的值搬进数组后，CNDTR 自动减一、目的地址自动加一，CPU 一行代码都不用写。</text>
+</svg>

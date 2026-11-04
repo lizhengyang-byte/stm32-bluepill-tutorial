@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 360" font-family="Helvetica,Arial,sans-serif" font-size="13">
+  <rect width="720" height="360" fill="#fafbfc"/>
+  <text x="360" y="24" text-anchor="middle" font-size="16" font-weight="bold" fill="#222">F103 ADC1 关键寄存器速览</text>
+
+  <!-- table -->
+  <g font-size="12">
+    <rect x="40" y="45" width="640" height="30" fill="#3a78b8"/>
+    <text x="60" y="65" fill="#fff" font-weight="bold">寄存器</text>
+    <text x="200" y="65" fill="#fff" font-weight="bold">作用</text>
+    <text x="560" y="65" fill="#fff" font-weight="bold">CubeMX 对应项</text>
+
+    <rect x="40" y="75" width="640" height="36" fill="#eef5fb" stroke="#ccc"/>
+    <text x="60" y="97" font-weight="bold" fill="#1a4a78">ADC_CR2</text>
+    <text x="200" y="92">ADON 开关、CAL 校准、SWSTART 软件触发、EXTSEL 触发源</text>
+    <text x="560" y="92" fill="#555">Continuous Conversion / External Trigger</text>
+
+    <rect x="40" y="111" width="640" height="36" fill="#fff" stroke="#ccc"/>
+    <text x="60" y="133" font-weight="bold" fill="#1a4a78">ADC_CR1</text>
+    <text x="200" y="128">SCAN 扫描模式、EOCIE 转换完成中断、DISCNUM 不连续模式</text>
+    <text x="560" y="128" fill="#555">Scan Conversion Mode / EOC Interrupt</text>
+
+    <rect x="40" y="147" width="640" height="36" fill="#eef5fb" stroke="#ccc"/>
+    <text x="60" y="169" font-weight="bold" fill="#1a4a78">ADC_SMPR2</text>
+    <text x="200" y="164">每通道采样时间（1.5 / 7.5 / 13.5 / 239.5 个 ADC 周期）</text>
+    <text x="560" y="164" fill="#555">Sampling Time</text>
+
+    <rect x="40" y="183" width="640" height="36" fill="#fff" stroke="#ccc"/>
+    <text x="60" y="205" font-weight="bold" fill="#1a4a78">ADC_SQR3 / SQR1</text>
+    <text x="200" y="200">规则组转换序列：Rank1…Rank16，以及 L 字段=序列长度</text>
+    <text x="560" y="200" fill="#555">Rank 1..N / Number of Conversions</text>
+
+    <rect x="40" y="219" width="640" height="36" fill="#eef5fb" stroke="#ccc"/>
+    <text x="60" y="241" font-weight="bold" fill="#1a4a78">ADC_DR</text>
+    <text x="200" y="236">16 位数据寄存器，低 12 位为转换结果；DMA 把它搬到内存</text>
+    <text x="560" y="236" fill="#555">（DMA 搬运源地址）</text>
+
+    <rect x="40" y="255" width="640" height="36" fill="#fff" stroke="#ccc"/>
+    <text x="60" y="277" font-weight="bold" fill="#1a4a78">ADC_SR</text>
+    <text x="200" y="272">EOC 转换完成标志、AWD 模拟看门狗、JEOC 注入组完成</text>
+    <text x="560" y="272" fill="#555">HAL 内部读取，用户一般不直接碰</text>
+  </g>
+
+  <text x="40" y="320" font-size="11" fill="#666">HAL 已经把这些寄存器封装好了：HAL_ADC_Init() 写 CR1/CR2/SMPR/SQR，HAL_ADC_Start() 置 ADON+SWSTART，</text>
+  <text x="40" y="338" font-size="11" fill="#666">HAL_ADC_PollForConversion() 轮询 SR.EOC，HAL_ADC_GetValue() 读 DR。读寄存器是为了出问题时能查手册定位。</text>
+</svg>

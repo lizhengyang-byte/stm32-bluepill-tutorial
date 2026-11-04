@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 360" font-family="Helvetica, Arial, sans-serif" font-size="13">
+  <rect width="900" height="360" fill="#fafbfc"/>
+  <text x="450" y="26" text-anchor="middle" font-size="16" font-weight="bold">裸机 while(1) vs FreeRTOS：同样干三件事，组织方式完全不同</text>
+
+  <!-- Bare metal section -->
+  <text x="60" y="60" font-size="14" font-weight="bold" fill="#a02c2c">裸机：一个大循环，三件事排队串行</text>
+
+  <!-- Timeline bare metal -->
+  <line x1="60" y1="100" x2="840" y2="100" stroke="#333" stroke-width="2"/>
+  <rect x="60" y="85" width="120" height="30" fill="#a02c2c" opacity="0.7"/>
+  <text x="120" y="105" text-anchor="middle" fill="#fff" font-size="11">读传感器 10ms</text>
+  <rect x="180" y="85" width="200" height="30" fill="#e0a020" opacity="0.7"/>
+  <text x="280" y="105" text-anchor="middle" fill="#fff" font-size="11">处理数据 50ms</text>
+  <rect x="380" y="85" width="100" height="30" fill="#2c7a2c" opacity="0.7"/>
+  <text x="430" y="105" text-anchor="middle" fill="#fff" font-size="11">刷屏 20ms</text>
+  <rect x="480" y="85" width="120" height="30" fill="#a02c2c" opacity="0.7"/>
+  <text x="540" y="105" text-anchor="middle" fill="#fff" font-size="11">读传感器</text>
+  <rect x="600" y="85" width="240" height="30" fill="#ddd" stroke="#999" stroke-dasharray="3,2"/>
+  <text x="720" y="105" text-anchor="middle" font-size="11" fill="#666">…一直在排队</text>
+
+  <text x="60" y="140" font-size="12" fill="#a02c2c">问题：按键中断插进来要 30ms 处理，整个循环就推迟 30ms——实时性没保证。</text>
+
+  <!-- RTOS section -->
+  <text x="60" y="190" font-size="14" font-weight="bold" fill="#2c5aa0">FreeRTOS：三个独立任务，调度器按优先级切</text>
+
+  <!-- Task rows -->
+  <text x="60" y="230" font-size="11" fill="#666">高·按键</text>
+  <rect x="140" y="218" width="100" height="22" fill="#ddd" stroke="#999" stroke-dasharray="3,2"/>
+  <text x="190" y="233" text-anchor="middle" font-size="10" fill="#666">等</text>
+  <rect x="400" y="218" width="80" height="22" fill="#a02c2c" opacity="0.85"/>
+  <text x="440" y="233" text-anchor="middle" fill="#fff" font-size="10">按键来了</text>
+
+  <text x="60" y="265" font-size="11" fill="#666">中·采集</text>
+  <rect x="140" y="253" width="260" height="22" fill="#e0a020" opacity="0.7"/>
+  <text x="270" y="268" text-anchor="middle" fill="#fff" font-size="10">采集（被打断一次）</text>
+  <rect x="480" y="253" width="200" height="22" fill="#e0a020" opacity="0.7"/>
+  <text x="580" y="268" text-anchor="middle" fill="#fff" font-size="10">继续采集</text>
+
+  <text x="60" y="300" font-size="11" fill="#666">低·刷屏</text>
+  <rect x="140" y="288" width="740" height="22" fill="#2c7a2c" opacity="0.5"/>
+  <text x="510" y="303" text-anchor="middle" fill="#fff" font-size="10">刷屏（中间被高/中任务挤掉一段时间）</text>
+
+  <text x="60" y="340" font-size="12" fill="#2c5aa0">好处：按键一到立刻被处理，不管刷屏刷到哪；采集任务按自己节奏跑，互不阻塞。代价是多了内核、栈、RAM 开销。</text>
+</svg>

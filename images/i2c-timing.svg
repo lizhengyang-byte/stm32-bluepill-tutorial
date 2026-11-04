@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420" font-family="Helvetica, Arial, sans-serif" font-size="13">
+  <rect width="900" height="420" fill="#fafbfc"/>
+  <text x="450" y="24" text-anchor="middle" font-size="16" font-weight="bold">I2C 一次完整传输：起始条件 → 7 位地址 + R/W → ACK → 数据 → ACK → 停止条件</text>
+
+  <!-- SCL line -->
+  <text x="40" y="80" font-weight="bold" fill="#2c5aa0">SCL</text>
+  <path d="M90,80 L140,80 L140,100 L180,100 L180,80 L220,80 L220,100 L260,100 L260,80 L300,80 L300,100 L340,100 L340,80 L380,80 L380,100 L420,100 L420,80 L460,80 L460,100 L500,100 L500,80 L540,80 L540,100 L580,100 L580,80 L620,80 L620,100 L660,100 L660,80 L700,80 L700,100 L740,100 L740,80 L790,80"
+        stroke="#2c5aa0" stroke-width="2" fill="none"/>
+
+  <!-- SDA line -->
+  <text x="40" y="180" font-weight="bold" fill="#a02c2c">SDA</text>
+  <!-- START: SDA falls while SCL high -->
+  <path d="M90,160 L140,160 L140,200 L180,200" stroke="#a02c2c" stroke-width="2" fill="none"/>
+  <!-- A6 -->
+  <path d="M180,200 L180,160 L220,160 L220,200 L260,200" stroke="#a02c2c" stroke-width="2" fill="none"/>
+  <!-- A5 -->
+  <path d="M260,200 L260,160 L300,160 L300,200 L340,200" stroke="#a02c2c" stroke-width="2" fill="none"/>
+  <!-- A4 -->
+  <path d="M340,200 L340,160 L380,160 L380,200 L420,200" stroke="#a02c2c" stroke-width="2" fill="none"/>
+  <!-- A3 -->
+  <path d="M420,200 L420,160 L460,160 L460,200 L500,200" stroke="#a02c2c" stroke-width="2" fill="none"/>
+  <!-- A2 -->
+  <path d="M500,200 L500,160 L540,160 L540,200 L580,200" stroke="#a02c2c" stroke-width="2" fill="none"/>
+  <!-- A1 -->
+  <path d="M580,200 L580,160 L620,160 L620,200 L660,200" stroke="#a02c2c" stroke-width="2" fill="none"/>
+  <!-- A0 -->
+  <path d="M660,200 L660,160 L700,160 L700,200 L740,200" stroke="#a02c2c" stroke-width="2" fill="none"/>
+  <!-- R/W bit (0 = write) -->
+  <path d="M740,200 L740,200 L790,200" stroke="#a02c2c" stroke-width="2" fill="none"/>
+  <!-- ACK from slave: SDA released (low) -->
+  <path d="M790,200 L790,200 L830,200" stroke="#a02c2c" stroke-width="2" fill="none"/>
+
+  <!-- Labels under SDA -->
+  <text x="160" y="235" text-anchor="middle" font-size="11" fill="#666">START</text>
+  <text x="200" y="235" text-anchor="middle" font-size="11" fill="#666">A6</text>
+  <text x="240" y="235" text-anchor="middle" font-size="11" fill="#666">A5</text>
+  <text x="280" y="235" text-anchor="middle" font-size="11" fill="#666">A4</text>
+  <text x="320" y="235" text-anchor="middle" font-size="11" fill="#666">A3</text>
+  <text x="360" y="235" text-anchor="middle" font-size="11" fill="#666">A2</text>
+  <text x="400" y="235" text-anchor="middle" font-size="11" fill="#666">A1</text>
+  <text x="440" y="235" text-anchor="middle" font-size="11" fill="#666">A0</text>
+  <text x="760" y="235" text-anchor="middle" font-size="11" fill="#666">R/W</text>
+  <text x="810" y="235" text-anchor="middle" font-size="11" fill="#666">ACK</text>
+
+  <!-- Annotations -->
+  <line x1="140" y1="60" x2="140" y2="200" stroke="#888" stroke-dasharray="3,3"/>
+  <text x="140" y="50" text-anchor="middle" font-size="11" fill="#888">SCL 高电平时 SDA 下降沿 = 起始</text>
+
+  <line x1="830" y1="60" x2="830" y2="200" stroke="#888" stroke-dasharray="3,3"/>
+  <text x="830" y="50" text-anchor="middle" font-size="11" fill="#888">SCL 高电平时 SDA 上升沿 = 停止</text>
+
+  <!-- Rules box -->
+  <rect x="60" y="270" width="780" height="130" fill="#fff8e1" stroke="#e0b84c" rx="6"/>
+  <text x="80" y="295" font-weight="bold" fill="#8a6d00">三条铁律</text>
+  <text x="80" y="318" font-size="12">1. SCL 高电平期间，SDA 必须稳定——数据位在这时候被采样；只有 SCL 低电平时 SDA 才能变。</text>
+  <text x="80" y="338" font-size="12">2. 起始条件（START）：SCL 还高着，SDA 从高拉低；停止条件（STOP）：SCL 还高着，SDA 从低拉高。</text>
+  <text x="80" y="358" font-size="12">3. 每发完 8 位（一个字节），接收方必须在第 9 个时钟把 SDA 拉低（ACK），表示"我收到了"。</text>
+  <text x="80" y="382" font-size="12" fill="#a02c2c">SSD1306 的 7 位地址是 0x3C，拼上 R/W=0（写）后字节就是 0x78——这就是 0x78 的来历。</text>
+</svg>

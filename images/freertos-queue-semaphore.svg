@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 380" font-family="Helvetica, Arial, sans-serif" font-size="13">
+  <rect width="900" height="380" fill="#fafbfc"/>
+  <text x="450" y="26" text-anchor="middle" font-size="16" font-weight="bold">队列（传数据）vs 信号量（传通知）</text>
+
+  <!-- Queue section -->
+  <text x="60" y="60" font-size="14" font-weight="bold" fill="#2c5aa0">队列 Queue：像一条流水线，数据先进先出</text>
+
+  <!-- Task A producer -->
+  <rect x="60" y="90" width="130" height="50" fill="#2c5aa0" rx="6"/>
+  <text x="125" y="112" text-anchor="middle" fill="#fff" font-weight="bold">任务 A</text>
+  <text x="125" y="130" text-anchor="middle" fill="#fff" font-size="11">生产者</text>
+
+  <!-- Queue buffer -->
+  <rect x="240" y="90" width="380" height="50" fill="#fff" stroke="#2c5aa0" stroke-width="2" rx="4"/>
+  <rect x="240" y="90" width="76" height="50" fill="#2c5aa0" opacity="0.3"/>
+  <rect x="316" y="90" width="76" height="50" fill="#2c5aa0" opacity="0.3"/>
+  <rect x="392" y="90" width="76" height="50" fill="#2c5aa0" opacity="0.5"/>
+  <text x="278" y="120" text-anchor="middle" font-size="11">msg1</text>
+  <text x="354" y="120" text-anchor="middle" font-size="11">msg2</text>
+  <text x="430" y="120" text-anchor="middle" font-size="11">msg3</text>
+  <text x="560" y="120" text-anchor="middle" font-size="11" fill="#888">空位…</text>
+
+  <!-- Task B consumer -->
+  <rect x="680" y="90" width="130" height="50" fill="#2c7a2c" rx="6"/>
+  <text x="745" y="112" text-anchor="middle" fill="#fff" font-weight="bold">任务 B</text>
+  <text x="745" y="130" text-anchor="middle" fill="#fff" font-size="11">消费者</text>
+
+  <!-- Arrows -->
+  <line x1="190" y1="115" x2="240" y2="115" stroke="#333" stroke-width="2" marker-end="url(#a3)"/>
+  <text x="215" y="105" text-anchor="middle" font-size="10">Put</text>
+  <line x1="620" y1="115" x2="680" y2="115" stroke="#333" stroke-width="2" marker-end="url(#a3)"/>
+  <text x="650" y="105" text-anchor="middle" font-size="10">Get</text>
+
+  <!-- Semaphore section -->
+  <text x="60" y="190" font-size="14" font-weight="bold" fill="#a02c2c">信号量 Semaphore：像一个令牌，谁拿到谁干活</text>
+
+  <!-- ISR -->
+  <rect x="60" y="220" width="130" height="50" fill="#a02c2c" rx="6"/>
+  <text x="125" y="242" text-anchor="middle" fill="#fff" font-weight="bold">中断</text>
+  <text x="125" y="260" text-anchor="middle" fill="#fff" font-size="11">按键触发</text>
+
+  <!-- Token -->
+  <circle cx="430" cy="245" r="22" fill="#e0a020" stroke="#8a6d00" stroke-width="2"/>
+  <text x="430" y="250" text-anchor="middle" font-size="11" font-weight="bold">令牌</text>
+
+  <!-- Task -->
+  <rect x="680" y="220" width="130" height="50" fill="#a02c2c" rx="6"/>
+  <text x="745" y="242" text-anchor="middle" fill="#fff" font-weight="bold">任务</text>
+  <text x="745" y="260" text-anchor="middle" fill="#fff" font-size="11">等令牌</text>
+
+  <line x1="190" y1="245" x2="405" y2="245" stroke="#333" stroke-width="2" marker-end="url(#a3)"/>
+  <text x="300" y="235" text-anchor="middle" font-size="10">Give（释放令牌）</text>
+  <line x1="455" y1="245" x2="680" y2="245" stroke="#333" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#a3)"/>
+  <text x="570" y="235" text-anchor="middle" font-size="10">Take（拿到才醒）</text>
+
+  <!-- Bottom note -->
+  <rect x="60" y="300" width="780" height="60" fill="#eef5ff" stroke="#2c5aa0" rx="6"/>
+  <text x="80" y="325" font-size="12">队列：传的是数据本身（比如"LED 翻转了，msg=1"），接收方拿到的是一份拷贝。</text>
+  <text x="80" y="345" font-size="12">信号量：不传数据，只传"事件发生了"这个通知。互斥量（Mutex）是二值信号量的特殊版，专门用来保护共享资源，还自带优先级继承。</text>
+
+  <defs>
+    <marker id="a3" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#333"/>
+    </marker>
+  </defs>
+</svg>

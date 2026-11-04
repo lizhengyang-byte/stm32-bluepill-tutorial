@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="520" viewBox="0 0 860 520" font-family="Helvetica, Arial, sans-serif">
+  <rect width="860" height="520" fill="#fafbfc"/>
+  <text x="430" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#222">Keil MDK 工程里那些文件都是干嘛的</text>
+
+  <!-- folder tree -->
+  <g font-family="Consolas, monospace" font-size="13" fill="#222">
+    <text x="60" y="70" font-weight="bold">LedDemo/</text>
+    <text x="80" y="95">├── LedDemo.uvprojx   ← Keil 工程文件（双击打开的就是它）</text>
+    <text x="80" y="118">├── LedDemo.uvoptx     ← 你的调试/窗口布局偏好（可删）</text>
+    <text x="80" y="141">├── LedDemo.ioc        ← CubeMX 配置，改配置要回这里</text>
+    <text x="80" y="164">├── Core/</text>
+    <text x="100" y="187">│   ├── Inc/  main.h, stm32f1xx_hal_conf.h ...</text>
+    <text x="100" y="210">│   └── Src/</text>
+    <text x="120" y="233">│       ├── main.c        ← 你的主战场（USER CODE 区）</text>
+    <text x="120" y="256">│       ├── stm32f1xx_it.c    ← 中断服务函数</text>
+    <text x="120" y="279">│       ├── stm32f1xx_hal_msp.c ← 外设底层引脚/时钟初始化</text>
+    <text x="120" y="302">│       └── system_stm32f1xx.c ← 系统时钟起步配置</text>
+    <text x="80" y="325">├── Drivers/</text>
+    <text x="100" y="348">│   ├── CMSIS/          ← ARM 内核头文件 + 启动文件 startup_*.s</text>
+    <text x="100" y="371">│   └── STM32F1xx_HAL_Driver/ ← HAL 库源码（别改）</text>
+    <text x="80" y="394">└── Objects/  Listings/   ← 编译产物 .hex/.o/.map，自动生成</text>
+  </g>
+
+  <!-- callouts -->
+  <rect x="500" y="420" width="320" height="80" rx="5" fill="#fef9c3" stroke="#ca8a04" stroke-width="1.5"/>
+  <text x="660" y="445" text-anchor="middle" font-size="12" font-weight="bold" fill="#713f12">启动文件 startup_stm32f103xb.s</text>
+  <text x="660" y="465" text-anchor="middle" font-size="11" fill="#713f12">定义中断向量表、栈指针，复位后第一个跑它</text>
+  <text x="660" y="485" text-anchor="middle" font-size="11" fill="#713f12">再跳转到 main()——这是芯片"开机流程"</text>
+</svg>

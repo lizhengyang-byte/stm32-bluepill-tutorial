@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="440" viewBox="0 0 800 440">
+  <style>
+    .t{font-family:"Helvetica Neue",Arial,"PingFang SC","Microsoft YaHei",sans-serif;fill:#1a1a1a}
+    .box{fill:#f7fafc;stroke:#4a5568;stroke-width:1.5;rx:6}
+    .reg{fill:#ebf8ff;stroke:#2b6cb0;stroke-width:1.5;rx:4}
+    .lbl{font-size:13px}
+    .small{font-size:11px;fill:#555}
+  </style>
+  <rect x="0" y="0" width="800" height="440" fill="#ffffff"/>
+  <text x="400" y="28" text-anchor="middle" class="t" font-size="17" font-weight="bold">通用定时器输出比较（PWM）通道内部结构</text>
+
+  <!-- clock -->
+  <rect x="40" y="60" width="120" height="50" class="reg"/>
+  <text x="100" y="82" text-anchor="middle" class="t lbl" font-weight="bold">CK_CNT</text>
+  <text x="100" y="100" text-anchor="middle" class="t small">72MHz / (PSC+1)</text>
+
+  <!-- PSC block -->
+  <rect x="40" y="140" width="120" height="46" class="box"/>
+  <text x="100" y="160" text-anchor="middle" class="t lbl" font-weight="bold">预分频器 PSC</text>
+  <text x="100" y="176" text-anchor="middle" class="t small">PSC=71 → 1MHz</text>
+
+  <!-- CNT counter -->
+  <rect x="240" y="140" width="140" height="60" class="reg"/>
+  <text x="310" y="165" text-anchor="middle" class="t lbl" font-weight="bold">计数器 CNT</text>
+  <text x="310" y="183" text-anchor="middle" class="t small">0 → ARR 循环递增</text>
+
+  <!-- ARR -->
+  <rect x="440" y="140" width="140" height="60" class="box"/>
+  <text x="510" y="165" text-anchor="middle" class="t lbl" font-weight="bold">自动重装载 ARR</text>
+  <text x="510" y="183" text-anchor="middle" class="t small">决定周期 / 频率</text>
+
+  <!-- CCR -->
+  <rect x="240" y="250" width="140" height="60" class="reg"/>
+  <text x="310" y="275" text-anchor="middle" class="t lbl" font-weight="bold">比较寄存器 CCR</text>
+  <text x="310" y="293" text-anchor="middle" class="t small">决定占空比</text>
+
+  <!-- comparator -->
+  <circle cx="310" cy="360" r="26" fill="#fffbeb" stroke="#d69e2e" stroke-width="2"/>
+  <text x="310" y="357" text-anchor="middle" class="t small" font-weight="bold">比较器</text>
+  <text x="310" y="372" text-anchor="middle" class="t small">CNT==CCR?</text>
+
+  <!-- OC mode / output -->
+  <rect x="440" y="330" width="160" height="60" class="box"/>
+  <text x="520" y="353" text-anchor="middle" class="t lbl" font-weight="bold">输出比较逻辑</text>
+  <text x="520" y="371" text-anchor="middle" class="t small">CCMR/CCER 配置电平</text>
+
+  <!-- PAx pin -->
+  <rect x="660" y="335" width="100" height="50" fill="#fef5e7" stroke="#c05621" stroke-width="2" rx="6"/>
+  <text x="710" y="356" text-anchor="middle" class="t lbl" font-weight="bold">PAx</text>
+  <text x="710" y="373" text-anchor="middle" class="t small">PWM 引脚</text>
+
+  <!-- arrows -->
+  <line x1="100" y1="110" x2="100" y2="140" stroke="#4a5568" stroke-width="1.5" marker-end="url(#a2)"/>
+  <line x1="160" y1="163" x2="240" y2="163" stroke="#4a5568" stroke-width="1.5" marker-end="url(#a2)"/>
+  <line x1="380" y1="163" x2="440" y2="163" stroke="#4a5568" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#a2)"/>
+  <line x1="310" y1="200" x2="310" y2="250" stroke="#4a5568" stroke-width="1.5" marker-end="url(#a2)"/>
+  <line x1="310" y1="310" x2="310" y2="334" stroke="#4a5568" stroke-width="1.5" marker-end="url(#a2)"/>
+  <line x1="336" y1="360" x2="440" y2="360" stroke="#4a5568" stroke-width="1.5" marker-end="url(#a2)"/>
+  <line x1="600" y1="360" x2="660" y2="360" stroke="#c05621" stroke-width="2" marker-end="url(#a2)"/>
+  <defs><marker id="a2" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6" fill="none" stroke="#4a5568"/></marker></defs>
+
+  <text x="400" y="425" text-anchor="middle" class="t small">CNT 从 0 涨到 ARR；CNT&lt;CCR 时输出一种电平，CNT≥CCR 时翻转 —— PWM 波形就这样硬件自动生成，CPU 不用干预</text>
+</svg>

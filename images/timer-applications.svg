@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 440" font-family="Helvetica, Arial, 'Microsoft YaHei', sans-serif">
+  <text x="440" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#1f2937">定时器能干的四件事：定时 / 计数 / 输入捕获 / 输出 PWM</text>
+
+  <!-- 4 cards -->
+  <g>
+    <rect x="60" y="60" width="370" height="160" fill="#dbeafe" stroke="#1e40af" stroke-width="2"/>
+    <text x="245" y="90" text-anchor="middle" font-size="15" font-weight="bold" fill="#1e3a8a">① 定时中断（本章）</text>
+    <text x="80" y="120" font-size="12" fill="#1f2937">每 10ms 进一次中断，做周期任务：</text>
+    <text x="90" y="145" font-size="12" fill="#374151">• 刷新数码管 / OLED</text>
+    <text x="90" y="165" font-size="12" fill="#374151">• 扫描按键状态机</text>
+    <text x="90" y="185" font-size="12" fill="#374151">• 喂狗、做软件计时器</text>
+    <text x="90" y="205" font-size="12" fill="#b91c1c">不占主循环，CPU 利用率高</text>
+  </g>
+
+  <g>
+    <rect x="450" y="60" width="370" height="160" fill="#fef3c7" stroke="#b45309" stroke-width="2"/>
+    <text x="635" y="90" text-anchor="middle" font-size="15" font-weight="bold" fill="#92400e">② 外部计数</text>
+    <text x="470" y="120" font-size="12" fill="#1f2937">把外部脉冲接 TI 引脚，CNT 自己累加：</text>
+    <text x="480" y="145" font-size="12" fill="#374151">• 流量计、光电编码器</text>
+    <text x="480" y="165" font-size="12" fill="#374151">• 测速、统计产量</text>
+    <text x="480" y="185" font-size="12" fill="#374151">• 掉电计数器（用备份寄存器保存）</text>
+    <text x="480" y="205" font-size="12" fill="#b91c1c">不用 CPU 数脉冲，硬件自动完成</text>
+  </g>
+
+  <g>
+    <rect x="60" y="240" width="370" height="160" fill="#d1fae5" stroke="#047857" stroke-width="2"/>
+    <text x="245" y="270" text-anchor="middle" font-size="15" font-weight="bold" fill="#065f46">③ 输入捕获（测频率/脉宽）</text>
+    <text x="80" y="300" font-size="12" fill="#1f2937">信号边沿到来时自动记录 CNT 值：</text>
+    <text x="90" y="325" font-size="12" fill="#374151">• HC-SR04 超声波测距</text>
+    <text x="90" y="345" font-size="12" fill="#374151">• 红外遥控 NEC 协议解码</text>
+    <text x="90" y="365" font-size="12" fill="#374151">• 测量 PWM 信号频率与占空比</text>
+    <text x="90" y="385" font-size="12" fill="#b91c1c">精度可达时钟级（µs 甚至 ns 级）</text>
+  </g>
+
+  <g>
+    <rect x="450" y="240" width="370" height="160" fill="#fce7f3" stroke="#be185d" stroke-width="2"/>
+    <text x="635" y="270" text-anchor="middle" font-size="15" font-weight="bold" fill="#831843">④ 输出 PWM（下一章）</text>
+    <text x="470" y="300" font-size="12" fill="#1f2937">CNT 与 CCR 比较自动输出电平：</text>
+    <text x="480" y="325" font-size="12" fill="#374151">• 呼吸灯 / 电机调速</text>
+    <text x="480" y="345" font-size="12" fill="#374151">• 舵机角度（20ms 周期）</text>
+    <text x="480" y="365" font-size="12" fill="#374151">• 蜂鸣器音阶、DAC 模拟输出</text>
+    <text x="480" y="385" font-size="12" fill="#b91c1c">详见 [第7章 PWM](ch07_PWM.md)</text>
+  </g>
+</svg>

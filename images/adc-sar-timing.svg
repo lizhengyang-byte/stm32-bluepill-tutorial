@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 360" font-family="Helvetica,Arial,sans-serif" font-size="13">
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 z" fill="#333"/>
+    </marker>
+  </defs>
+  <rect width="720" height="360" fill="#fafbfc"/>
+  <text x="360" y="24" text-anchor="middle" font-size="16" font-weight="bold" fill="#222">SAR 型 ADC 一次转换的时序（F103 ADC）</text>
+
+  <!-- phases -->
+  <rect x="60" y="60" width="160" height="50" fill="#cfe8ff" stroke="#3a78b8"/>
+  <text x="140" y="82" text-anchor="middle" font-weight="bold">采样阶段 (Sample)</text>
+  <text x="140" y="100" text-anchor="middle" fill="#1a4a78">SMPR 设置采样周期</text>
+
+  <rect x="220" y="60" width="200" height="50" fill="#ffe3b3" stroke="#c08020"/>
+  <text x="320" y="82" text-anchor="middle" font-weight="bold">保持 + 逐次逼近 (Hold / SAR)</text>
+  <text x="320" y="100" text-anchor="middle" fill="#7a4a10">12.5 个 ADC Clock 周期</text>
+
+  <rect x="420" y="60" width="140" height="50" fill="#d8f0d0" stroke="#3a883a"/>
+  <text x="490" y="82" text-anchor="middle" font-weight="bold">结果写入 DR</text>
+  <text x="490" y="100" text-anchor="middle" fill="#1f5a1f">EOC 标志置位</text>
+
+  <line x1="60" y1="130" x2="560" y2="130" stroke="#333" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="570" y="134" fill="#333">时间</text>
+
+  <!-- clock -->
+  <text x="60" y="170" font-weight="bold">ADC Clock (ADCCLK, 最大 14 MHz)</text>
+  <g stroke="#444" stroke-width="1.2" fill="none">
+    <path d="M60,190 H80 v-14 h20 v14 h20 v-14 h20 v14 h20 v-14 h20 v14 h20 v-14 h20 v14 h20 v-14 h20 v14 h20 v-14 h20 v14 h20 v-14 h20 v14 h20 v-14 h20 v14 h20 v-14 h20 v14 h20 v-14 h20 v14"/>
+  </g>
+
+  <!-- Vin held -->
+  <text x="60" y="240" font-weight="bold">V_IN (引脚电压)</text>
+  <path d="M60,260 H220 V300 H560" stroke="#b83a3a" stroke-width="2" fill="none"/>
+  <text x="140" y="255" text-anchor="middle" fill="#b83a3a">采样开关闭合，给采样电容充电</text>
+  <text x="390" y="295" text-anchor="middle" fill="#b83a3a">开关断开，电容上电压保持 V_IN，SAR 开始比较</text>
+
+  <!-- EOC -->
+  <text x="60" y="335" font-weight="bold">EOC 标志</text>
+  <rect x="420" y="322" width="140" height="16" fill="#d8f0d0" stroke="#3a883a"/>
+  <text x="490" y="334" text-anchor="middle" font-size="11" fill="#1f5a1f">转换完成，可读 DR</text>
+
+  <!-- footnote -->
+  <text x="60" y="355" font-size="11" fill="#666">采样时间可选 1.5 / 7.5 / 13.5 / 28.5 / 41.5 / 55.5 / 71.5 / 239.5 个 ADC 周期；总转换时间 = 采样周期 + 12.5 周期。</text>
+</svg>

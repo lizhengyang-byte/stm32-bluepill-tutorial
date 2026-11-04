@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="520" viewBox="0 0 880 520" font-family="Helvetica, Arial, sans-serif">
+  <rect width="880" height="520" fill="#fafbfc"/>
+  <text x="440" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#222">Cortex-M3 内核内部结构（你只需有个印象）</text>
+
+  <!-- CPU core -->
+  <rect x="290" y="60" width="300" height="80" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+  <text x="440" y="88" text-anchor="middle" font-size="15" font-weight="bold" fill="#1e3a8a">中央处理器 CPU</text>
+  <text x="440" y="110" text-anchor="middle" font-size="11.5" fill="#1e3a8a">执行 Thumb-2 指令  ·  32 位寄存器组</text>
+  <text x="440" y="128" text-anchor="middle" font-size="11.5" fill="#1e3a8a">R0–R15  ·  xPSR 状态寄存器</text>
+
+  <!-- NVIC -->
+  <rect x="60" y="200" width="220" height="100" rx="6" fill="#fce7f3" stroke="#db2777" stroke-width="2"/>
+  <text x="170" y="228" text-anchor="middle" font-size="14" font-weight="bold" fill="#831843">NVIC 中断控制器</text>
+  <text x="170" y="250" text-anchor="middle" font-size="11" fill="#831843">嵌套向量中断</text>
+  <text x="170" y="268" text-anchor="middle" font-size="11" fill="#831843">优先级分组、中断向量表</text>
+  <text x="170" y="286" text-anchor="middle" font-size="11" fill="#831843">硬件自动压栈/出栈</text>
+
+  <!-- SysTick -->
+  <rect x="600" y="200" width="220" height="100" rx="6" fill="#fce7f3" stroke="#db2777" stroke-width="2"/>
+  <text x="710" y="228" text-anchor="middle" font-size="14" font-weight="bold" fill="#831843">SysTick 系统滴答</text>
+  <text x="710" y="250" text-anchor="middle" font-size="11" fill="#831843">24 位倒计时定时器</text>
+  <text x="710" y="268" text-anchor="middle" font-size="11" fill="#831843">HAL_Delay() 的心跳来源</text>
+  <text x="710" y="286" text-anchor="middle" font-size="11" fill="#831843">也是 RTOS 的时基</text>
+
+  <!-- Debug -->
+  <rect x="60" y="360" width="220" height="90" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+  <text x="170" y="388" text-anchor="middle" font-size="14" font-weight="bold" fill="#14532d">调试模块 SWD</text>
+  <text x="170" y="410" text-anchor="middle" font-size="11" fill="#14532d">SWDIO / SWCLK 两线</text>
+  <text x="170" y="428" text-anchor="middle" font-size="11" fill="#14532d">下断点、单步、看寄存器</text>
+
+  <!-- Memory model -->
+  <rect x="600" y="360" width="220" height="90" rx="6" fill="#fef9c3" stroke="#ca8a04" stroke-width="2"/>
+  <text x="710" y="388" text-anchor="middle" font-size="14" font-weight="bold" fill="#713f12">统一地址空间</text>
+  <text x="710" y="410" text-anchor="middle" font-size="11" fill="#713f12">内存与寄存器统一编址</text>
+  <text x="710" y="428" text-anchor="middle" font-size="11" fill="#713f12">操作外设 = 写特定地址</text>
+
+  <!-- connectors -->
+  <line x1="350" y1="140" x2="200" y2="200" stroke="#888" stroke-width="1.5"/>
+  <line x1="530" y1="140" x2="680" y2="200" stroke="#888" stroke-width="1.5"/>
+  <line x1="330" y1="140" x2="200" y2="360" stroke="#888" stroke-width="1.2" stroke-dasharray="4,3"/>
+  <line x1="560" y1="140" x2="700" y2="360" stroke="#888" stroke-width="1.2" stroke-dasharray="4,3"/>
+
+  <text x="440" y="490" text-anchor="middle" font-size="12" fill="#666">内核是 ARM 设计好的"黑盒"，我们主要通过 NVIC（中断）、SysTick（延时）和 SWD（调试）与它打交道</text>
+</svg>

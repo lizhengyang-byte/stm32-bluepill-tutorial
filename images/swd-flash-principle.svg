@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="440" viewBox="0 0 880 440" font-family="Helvetica, Arial, sans-serif">
+  <rect width="880" height="440" fill="#fafbfc"/>
+  <text x="440" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#222">SWD 烧录到底干了什么</text>
+
+  <!-- ST-Link -->
+  <rect x="50" y="90" width="160" height="110" rx="6" fill="#eef2ff" stroke="#4f46e5" stroke-width="2"/>
+  <text x="130" y="118" text-anchor="middle" font-size="14" font-weight="bold" fill="#312e81">ST-Link 下载器</text>
+  <text x="130" y="142" text-anchor="middle" font-size="11" fill="#312e81">PC 端烧录软件</text>
+  <text x="130" y="162" text-anchor="middle" font-size="11" fill="#312e81">把 .hex 拆成数据包</text>
+  <text x="130" y="182" text-anchor="middle" font-size="11" fill="#312e81">通过 SWD 两线发出去</text>
+
+  <!-- wires -->
+  <line x1="210" y1="125" x2="430" y2="125" stroke="#16a34a" stroke-width="2.5"/>
+  <text x="320" y="116" text-anchor="middle" font-size="12" fill="#16a34a" font-weight="bold">SWDIO（数据）</text>
+  <line x1="210" y1="165" x2="430" y2="165" stroke="#ea580c" stroke-width="2.5"/>
+  <text x="320" y="185" text-anchor="middle" font-size="12" fill="#ea580c" font-weight="bold">SWCLK（时钟）</text>
+
+  <!-- Chip -->
+  <rect x="430" y="80" width="220" height="150" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+  <text x="540" y="108" text-anchor="middle" font-size="14" font-weight="bold" fill="#1e3a8a">STM32 芯片</text>
+  <text x="540" y="132" text-anchor="middle" font-size="11" fill="#1e3a8a">SWD 调试端口（硬连内核）</text>
+  <text x="540" y="152" text-anchor="middle" font-size="11" fill="#1e3a8a">暂停 CPU → 接管总线</text>
+  <text x="540" y="172" text-anchor="middle" font-size="11" fill="#1e3a8a">运行片内"烧录算法"</text>
+  <text x="540" y="192" text-anchor="middle" font-size="11" fill="#1e3a8a">按页擦除→写入 Flash</text>
+  <text x="540" y="216" text-anchor="middle" font-size="11" font-weight="bold" fill="#1e3a8a">复位后从 Flash 跑你的程序</text>
+
+  <!-- steps -->
+  <rect x="60" y="280" width="760" height="130" rx="6" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="80" y="308" font-size="13" font-weight="bold" fill="#334155">烧录四步：</text>
+  <text x="80" y="335" font-size="12.5" fill="#334155">① 连接握手：ST-Link 读芯片 IDCODE，确认是哪颗片子、对不对版</text>
+  <text x="80" y="360" font-size="12.5" fill="#334155">② 擦除：按页（page）擦除要写入的 Flash 区域，旧程序清零</text>
+  <text x="80" y="385" font-size="12.5" fill="#334155">③ 编程：把 .hex 的机器码逐页写进 Flash，写完回读校验</text>
+  <text x="450" y="335" font-size="12.5" fill="#334155">④ 复位运行：设为 "Reset and Run"，烧完自动重启跑新程序</text>
+  <text x="450" y="360" font-size="12" fill="#94a3b8">（Debug 里不复位，停在 main 等你打断点）</text>
+</svg>

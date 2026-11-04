@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 320" font-family="Helvetica,Arial,sans-serif" font-size="13">
+  <rect width="760" height="320" fill="#fafbfc"/>
+  <text x="380" y="24" text-anchor="middle" font-size="16" font-weight="bold" fill="#222">DMA 的三种传输方向</text>
+
+  <!-- 1. Peripheral -> Memory -->
+  <g transform="translate(40,50)">
+    <text x="0" y="0" font-weight="bold" fill="#1a4a78">① 外设 → 内存（最常用：ADC 采样、串口接收）</text>
+    <rect x="0" y="20" width="120" height="50" fill="#cfe8ff" stroke="#3a78b8"/>
+    <text x="60" y="50" text-anchor="middle" font-weight="bold">外设寄存器</text>
+    <text x="60" y="66" text-anchor="middle" font-size="11" fill="#1a4a78">ADC_DR / USART_DR</text>
+    <line x1="120" y1="45" x2="260" y2="45" stroke="#b83a3a" stroke-width="2.5" marker-end="url(#a)"/>
+    <rect x="260" y="20" width="140" height="50" fill="#d8f0d0" stroke="#3a883a"/>
+    <text x="330" y="50" text-anchor="middle" font-weight="bold">内存缓冲区</text>
+    <text x="330" y="66" text-anchor="middle" font-size="11" fill="#1f5a1f">adc_buf[] / rx_buf[]</text>
+    <text x="0" y="95" font-size="11" fill="#555">源地址固定不增（外设寄存器），目的地址自增（数组下标）。</text>
+  </g>
+
+  <!-- 2. Memory -> Peripheral -->
+  <g transform="translate(40,160)">
+    <text x="0" y="0" font-weight="bold" fill="#1a4a78">② 内存 → 外设（串口发送、DAC 输出）</text>
+    <rect x="0" y="20" width="140" height="50" fill="#d8f0d0" stroke="#3a883a"/>
+    <text x="70" y="50" text-anchor="middle" font-weight="bold">内存缓冲区</text>
+    <text x="70" y="66" text-anchor="middle" font-size="11" fill="#1f5a1f">tx_buf[]</text>
+    <line x1="140" y1="45" x2="280" y2="45" stroke="#b83a3a" stroke-width="2.5" marker-end="url(#a)"/>
+    <rect x="280" y="20" width="120" height="50" fill="#cfe8ff" stroke="#3a78b8"/>
+    <text x="340" y="50" text-anchor="middle" font-weight="bold">外设寄存器</text>
+    <text x="340" y="66" text-anchor="middle" font-size="11" fill="#1a4a78">USART_DR / DAC_DHR</text>
+    <text x="0" y="95" font-size="11" fill="#555">源地址自增（数组依次读），目的地址固定（每次写同一个 DR）。</text>
+  </g>
+
+  <!-- 3. Memory -> Memory -->
+  <g transform="translate(420,50)">
+    <text x="0" y="0" font-weight="bold" fill="#1a4a78">③ 内存 → 内存（F103 仅 DMA2 支持）</text>
+    <rect x="0" y="20" width="120" height="50" fill="#ffe3b3" stroke="#c08020"/>
+    <text x="60" y="50" text-anchor="middle" font-weight="bold">源数组</text>
+    <line x1="120" y1="45" x2="240" y2="45" stroke="#b83a3a" stroke-width="2.5" marker-end="url(#a)"/>
+    <rect x="240" y="20" width="120" height="50" fill="#ffe3b3" stroke="#c08020"/>
+    <text x="300" y="50" text-anchor="middle" font-weight="bold">目的数组</text>
+    <text x="0" y="95" font-size="11" fill="#555">两块内存互相拷贝，不经过外设；</text>
+    <text x="0" y="112" font-size="11" fill="#555">F103C8T6 只有 DMA1，所以这个方向在 Blue Pill 上用不上。</text>
+  </g>
+
+  <defs>
+    <marker id="a" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 z" fill="#b83a3a"/>
+    </marker>
+  </defs>
+
+  <text x="40" y="300" font-size="11" fill="#666">CubeMX 里对应参数：Direction = Peripheral To Memory / Memory To Peripheral；Increment Address 勾 Peripheral 还是 Memory。</text>
+</svg>

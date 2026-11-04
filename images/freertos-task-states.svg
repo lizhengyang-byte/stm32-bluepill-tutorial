@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" font-family="Helvetica, Arial, sans-serif" font-size="13">
+  <rect width="800" height="420" fill="#fafbfc"/>
+  <text x="400" y="26" text-anchor="middle" font-size="16" font-weight="bold">FreeRTOS 任务的四种状态与切换</text>
+
+  <!-- Running -->
+  <ellipse cx="400" cy="100" rx="100" ry="40" fill="#2c5aa0" opacity="0.9"/>
+  <text x="400" y="105" text-anchor="middle" fill="#fff" font-weight="bold" font-size="15">运行 Running</text>
+
+  <!-- Ready -->
+  <ellipse cx="150" cy="250" rx="100" ry="40" fill="#2c7a2c" opacity="0.85"/>
+  <text x="150" y="255" text-anchor="middle" fill="#fff" font-weight="bold" font-size="15">就绪 Ready</text>
+
+  <!-- Blocked -->
+  <ellipse cx="400" cy="330" rx="110" ry="40" fill="#e0a020" opacity="0.85"/>
+  <text x="400" y="335" text-anchor="middle" fill="#fff" font-weight="bold" font-size="15">阻塞 Blocked</text>
+
+  <!-- Suspended -->
+  <ellipse cx="650" cy="250" rx="100" ry="40" fill="#888" opacity="0.85"/>
+  <text x="650" y="255" text-anchor="middle" fill="#fff" font-weight="bold" font-size="15">挂起 Suspended</text>
+
+  <!-- Arrows: Running -> Ready (preempted by higher prio) -->
+  <path d="M330,130 Q200,180 160,215" stroke="#333" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+  <text x="210" y="180" font-size="11" fill="#666">被高优先级抢占</text>
+
+  <!-- Ready -> Running (scheduler picks it) -->
+  <path d="M180,215 Q250,160 340,125" stroke="#333" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+  <text x="230" y="155" font-size="11" fill="#666">轮到它跑</text>
+
+  <!-- Running -> Blocked (vTaskDelay / wait queue) -->
+  <path d="M400,140 L400,290" stroke="#333" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+  <text x="410" y="220" font-size="11" fill="#666">vTaskDelay / 等队列</text>
+
+  <!-- Blocked -> Ready (timeout / event arrives) -->
+  <path d="M360,300 Q250,270 190,270" stroke="#333" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+  <text x="230" y="295" font-size="11" fill="#666">超时 / 事件到了</text>
+
+  <!-- Running -> Suspended -->
+  <path d="M470,125 Q580,180 620,215" stroke="#333" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+  <text x="560" y="170" font-size="11" fill="#666">vTaskSuspend</text>
+
+  <!-- Suspended -> Ready -->
+  <path d="M580,235 Q450,200 240,235" stroke="#333" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+  <text x="400" y="215" text-anchor="middle" font-size="11" fill="#666">vTaskResume</text>
+
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#333"/>
+    </marker>
+  </defs>
+
+  <!-- Note -->
+  <rect x="60" y="380" width="680" height="30" fill="#fff8e1" stroke="#e0b84c" rx="4"/>
+  <text x="400" y="400" text-anchor="middle" font-size="12">同一时刻只有一个任务在 Running；Ready 队列里按优先级排着队等 CPU；Blocked 是在等事件，不占 CPU 也不参与调度。</text>
+</svg>

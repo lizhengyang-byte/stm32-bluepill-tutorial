@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 460" font-family="Helvetica, Arial, sans-serif" font-size="13">
+  <rect width="900" height="460" fill="#fafbfc"/>
+  <text x="450" y="24" text-anchor="middle" font-size="16" font-weight="bold">SPI Mode 0 时序（CPOL=0, CPHA=0）：SCK 空闲低，第一个沿采样</text>
+
+  <!-- CS -->
+  <text x="40" y="70" font-weight="bold" fill="#444">CS</text>
+  <path d="M90,55 L120,55 L120,85 L830,85 L830,55 L870,55" stroke="#444" stroke-width="2" fill="none"/>
+  <text x="105" y="45" text-anchor="middle" font-size="11" fill="#888">拉低选中</text>
+  <text x="850" y="45" text-anchor="middle" font-size="11" fill="#888">拉高释放</text>
+
+  <!-- SCK -->
+  <text x="40" y="150" font-weight="bold" fill="#2c5aa0">SCK</text>
+  <path d="M120,165 L170,165 L170,135 L220,135 L220,165 L270,165 L270,135 L320,135 L320,165 L370,165 L370,135 L420,135 L420,165 L470,165 L470,135 L520,135 L520,165 L570,165 L570,135 L620,135 L620,165 L670,165 L670,135 L720,135 L720,165 L770,165 L770,135 L820,135 L820,165"
+        stroke="#2c5aa0" stroke-width="2" fill="none"/>
+
+  <!-- MOSI (master out) -->
+  <text x="40" y="240" font-weight="bold" fill="#a02c2c">MOSI</text>
+  <path d="M120,255 L145,255 L145,225 L195,225 L195,255 L245,255 L245,225 L295,225 L295,255 L345,255 L345,225 L395,225 L395,255 L445,255 L445,225 L495,225 L495,255 L545,255 L545,225 L595,225 L595,255 L645,255 L645,225 L695,225 L695,255 L745,255 L745,225 L795,225 L795,255 L820,255"
+        stroke="#a02c2c" stroke-width="2" fill="none"/>
+
+  <!-- MISO (slave out) -->
+  <text x="40" y="330" font-weight="bold" fill="#2c7a2c">MISO</text>
+  <path d="M120,345 L145,345 L145,315 L195,315 L195,345 L245,345 L245,315 L295,315 L295,345 L345,345 L345,315 L395,315 L395,345 L445,345 L445,315 L495,315 L495,345 L545,345 L545,315 L595,315 L595,345 L645,345 L645,315 L695,315 L695,345 L745,345 L745,315 L795,315 L795,345 L820,345"
+        stroke="#2c7a2c" stroke-width="2" fill="none"/>
+
+  <!-- Bit labels -->
+  <text x="170" y="200" text-anchor="middle" font-size="11" fill="#666">bit7</text>
+  <text x="270" y="200" text-anchor="middle" font-size="11" fill="#666">bit6</text>
+  <text x="370" y="200" text-anchor="middle" font-size="11" fill="#666">bit5</text>
+  <text x="470" y="200" text-anchor="middle" font-size="11" fill="#666">bit4</text>
+  <text x="570" y="200" text-anchor="middle" font-size="11" fill="#666">bit3</text>
+  <text x="670" y="200" text-anchor="middle" font-size="11" fill="#666">bit2</text>
+  <text x="770" y="200" text-anchor="middle" font-size="11" fill="#666">bit1</text>
+
+  <!-- Mode table -->
+  <rect x="60" y="380" width="780" height="70" fill="#eef5ff" stroke="#2c5aa0" rx="6"/>
+  <text x="80" y="405" font-weight="bold" fill="#2c5aa0">四种 SPI 模式（CPOL × CPHA）</text>
+  <text x="80" y="425" font-size="12">Mode 0: CPOL=0 SCK 空闲低, CPHA=0 第一沿采样（OLED/Flash 最常用）</text>
+  <text x="80" y="443" font-size="12">Mode 3: CPOL=1 SCK 空闲高, CPHA=1 第二沿采样——部分 OLED/SD 卡用这个；配错就乱码。</text>
+</svg>

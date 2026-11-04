@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 460" font-family="Helvetica, Arial, 'Microsoft YaHei', sans-serif">
+  <text x="440" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#1f2937">机械按键按下时的电平抖动与软件消抖</text>
+
+  <!-- axes -->
+  <line x1="60" y1="60" x2="60" y2="280" stroke="#374151" stroke-width="1.5"/>
+  <line x1="60" y1="280" x2="840" y2="280" stroke="#374151" stroke-width="1.5"/>
+  <text x="30" y="70" font-size="12" fill="#374151">3.3V</text>
+  <text x="30" y="285" font-size="12" fill="#374151">0V</text>
+
+  <!-- Ideal waveform (clean) -->
+  <text x="60" y="55" font-size="12" font-weight="bold" fill="#1e40af">理想波形</text>
+  <polyline points="60,80 200,80 200,260 700,260 700,80 840,80" fill="none" stroke="#1e40af" stroke-width="2"/>
+
+  <!-- Real noisy waveform -->
+  <text x="60" y="310" font-size="12" font-weight="bold" fill="#b91c1c">实际抖动波形</text>
+  <line x1="60" y1="330" x2="60" y2="450" stroke="#374151" stroke-width="1.5"/>
+  <line x1="60" y1="450" x2="840" y2="450" stroke="#374151" stroke-width="1.5"/>
+  <text x="30" y="335" font-size="12" fill="#374151">3.3V</text>
+  <text x="30" y="455" font-size="12" fill="#374151">0V</text>
+
+  <!-- noisy line: mostly high until ~200, then bounce between high and low for ~10ms, settle low -->
+  <polyline points="60,335 195,335 200,445 205,335 212,445 218,335 225,445 230,335 238,445 245,335 255,445 265,335 275,445 290,445 690,445 695,335 702,445 708,335 715,445 725,335 840,335"
+            fill="none" stroke="#b91c1c" stroke-width="2"/>
+
+  <!-- debounce window arrow -->
+  <line x1="200" y1="470" x2="290" y2="470" stroke="#374151" stroke-width="1.5" marker-start="url(#a)" marker-end="url(#a)"/>
+  <text x="245" y="488" text-anchor="middle" font-size="12" fill="#374151">约 5–20ms 抖动区</text>
+
+  <!-- 20ms delay window on clean trace -->
+  <line x1="200" y1="300" x2="300" y2="300" stroke="#059669" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <line x1="300" y1="280" x2="300" y2="310" stroke="#059669" stroke-width="1.5"/>
+  <text x="250" y="295" text-anchor="middle" font-size="12" fill="#059669">延时 20ms 后再读一次，确认仍为低 → 认定按下</text>
+
+  <defs>
+    <marker id="a" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+      <path d="M0,4 L8,0 L8,8 z" fill="#374151"/>
+    </marker>
+  </defs>
+</svg>

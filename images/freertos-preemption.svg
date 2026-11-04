@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 320" font-family="Helvetica, Arial, sans-serif" font-size="13">
+  <rect width="900" height="320" fill="#fafbfc"/>
+  <text x="450" y="26" text-anchor="middle" font-size="16" font-weight="bold">抢占式调度：高优先级任务一就绪，立刻抢走 CPU</text>
+
+  <!-- Time axis -->
+  <line x1="60" y1="280" x2="860" y2="280" stroke="#333" stroke-width="2" marker-end="url(#arr2)"/>
+  <text x="870" y="285" font-size="12">时间</text>
+
+  <!-- Task Low row -->
+  <text x="40" y="100" font-weight="bold" fill="#2c5aa0">低优先级</text>
+  <text x="40" y="118" font-size="11" fill="#666">后台采集</text>
+  <!-- Low running block -->
+  <rect x="100" y="85" width="200" height="30" fill="#2c5aa0" opacity="0.7"/>
+  <text x="200" y="105" text-anchor="middle" fill="#fff" font-size="12">低任务在跑</text>
+  <!-- Low blocked -->
+  <rect x="300" y="85" width="60" height="30" fill="#ddd" stroke="#999" stroke-dasharray="3,2"/>
+  <text x="330" y="105" text-anchor="middle" font-size="10" fill="#666">被抢占</text>
+  <!-- Low running again -->
+  <rect x="480" y="85" width="320" height="30" fill="#2c5aa0" opacity="0.7"/>
+  <text x="640" y="105" text-anchor="middle" fill="#fff" font-size="12">低任务继续跑</text>
+
+  <!-- Task High row -->
+  <text x="40" y="200" font-weight="bold" fill="#a02c2c">高优先级</text>
+  <text x="40" y="218" font-size="11" fill="#666">按键响应</text>
+  <!-- High blocked -->
+  <rect x="100" y="185" width="200" height="30" fill="#ddd" stroke="#999" stroke-dasharray="3,2"/>
+  <text x="200" y="205" text-anchor="middle" font-size="10" fill="#666">阻塞等按键</text>
+  <!-- High running -->
+  <rect x="300" y="185" width="180" height="30" fill="#a02c2c" opacity="0.85"/>
+  <text x="390" y="205" text-anchor="middle" fill="#fff" font-size="12">按键来了！立刻跑</text>
+  <!-- High blocked again -->
+  <rect x="480" y="185" width="320" height="30" fill="#ddd" stroke="#999" stroke-dasharray="3,2"/>
+  <text x="640" y="205" text-anchor="middle" font-size="10" fill="#666">处理完，回去阻塞</text>
+
+  <!-- Vertical dashed line at preemption point -->
+  <line x1="300" y1="60" x2="300" y2="260" stroke="#a02c2c" stroke-dasharray="4,3" stroke-width="2"/>
+  <text x="300" y="55" text-anchor="middle" font-size="12" fill="#a02c2c">按键中断 → 高任务就绪 → 立刻切换</text>
+
+  <!-- Second preemption -->
+  <line x1="480" y1="60" x2="480" y2="260" stroke="#2c5aa0" stroke-dasharray="4,3" stroke-width="2"/>
+  <text x="480" y="55" text-anchor="middle" font-size="12" fill="#2c5aa0">高任务阻塞，切回低任务</text>
+
+  <defs>
+    <marker id="arr2" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#333"/>
+    </marker>
+  </defs>
+
+  <text x="450" y="250" text-anchor="middle" font-size="12" fill="#666">这就是"实时"的含义：高优先级任务的响应延迟是确定性的，不受低任务代码长短影响。</text>
+</svg>

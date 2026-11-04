@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 560" font-family="Consolas, 'Courier New', monospace" font-size="13">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#333"/>
+    </marker>
+    <style>
+      .title { font-size: 18px; font-weight: bold; fill: #1a1a1a; }
+      .sub { font-size: 12px; fill: #555; }
+      .box-hard { fill: #eceff1; stroke: #546e7a; stroke-width: 2; rx: 6; }
+      .box-asm  { fill: #e8f0fe; stroke: #1a5fb4; stroke-width: 2; rx: 6; }
+      .box-c    { fill: #e8f5e9; stroke: #27ae60; stroke-width: 2; rx: 6; }
+      .box-user { fill: #fff3e0; stroke: #e67e22; stroke-width: 2.5; rx: 6; }
+      .t { font-size: 14px; font-weight: bold; fill: #222; text-anchor: middle; }
+      .ts { font-size: 11px; fill: #444; text-anchor: middle; }
+      .wire { stroke: #333; stroke-width: 1.8; fill: none; }
+      .note { font-size: 11px; fill: #555; }
+    </style>
+  </defs>
+
+  <text x="450" y="28" text-anchor="middle" class="title">从复位到 main() 的调用链（C 运行环境是怎么搭起来的）</text>
+  <text x="450" y="48" text-anchor="middle" class="sub">灰色=硬件自动；蓝色=startup 汇编文件；绿色=C 库/系统文件；橙色=你的代码</text>
+
+  <!-- Reset -->
+  <rect x="320" y="70" width="260" height="56" class="box-hard"/>
+  <text x="450" y="95" class="t">上电 / 复位</text>
+  <text x="450" y="113" class="ts">硬件自动：PC = 0x00000000（实际重映射到 Flash 0x08000000）</text>
+
+  <line x1="450" y1="126" x2="450" y2="150" class="wire" marker-end="url(#arrow)"/>
+
+  <!-- Vector table -->
+  <rect x="280" y="150" width="340" height="56" class="box-hard"/>
+  <text x="450" y="175" class="t">读取向量表前两项</text>
+  <text x="450" y="193" class="ts">[0]=__initial_sp（MSP 栈顶）  [1]=Reset_Handler 地址</text>
+
+  <line x1="450" y1="206" x2="450" y2="230" class="wire" marker-end="url(#arrow)"/>
+
+  <!-- Reset_Handler -->
+  <rect x="280" y="230" width="340" height="70" class="box-asm"/>
+  <text x="450" y="255" class="t">Reset_Handler（汇编）</text>
+  <text x="450" y="273" class="ts">复制 .data 段 Flash→RAM，清零 .bss 段</text>
+  <text x="450" y="289" class="ts">调用 SystemInit() → 再跳 __main（C 库入口）</text>
+
+  <line x1="450" y1="300" x2="450" y2="325" class="wire" marker-end="url(#arrow)"/>
+
+  <!-- SystemInit side branch -->
+  <rect x="60" y="325" width="240" height="56" class="box-c"/>
+  <text x="180" y="350" class="t">SystemInit()</text>
+  <text x="180" y="368" class="ts">system_stm32f1xx.c：开 HSI、</text>
+  <text x="180" y="382" class="ts">配 Flash 等待、设向量表偏移</text>
+  <line x1="320" y1="353" x2="240" y2="353" class="wire" marker-end="url(#arrow)"/>
+
+  <!-- __main -->
+  <rect x="300" y="325" width="300" height="56" class="box-asm"/>
+  <text x="450" y="350" class="t">__main（C 库初始化）</text>
+  <text x="450" y="368" class="ts">库自身初始化、调用 __rt_entry → main</text>
+
+  <line x1="450" y1="381" x2="450" y2="405" class="wire" marker-end="url(#arrow)"/>
+
+  <!-- main -->
+  <rect x="280" y="405" width="340" height="56" class="box-user"/>
+  <text x="450" y="430" class="t">main()  ← 你的代码从这里开始</text>
+  <text x="450" y="448" class="ts">HAL_Init() → SystemClock_Config() → while(1)</text>
+
+  <!-- side note: HAL clock config -->
+  <rect x="620" y="405" width="250" height="56" class="box-c"/>
+  <text x="745" y="428" class="t">SystemClock_Config()</text>
+  <text x="745" y="446" class="ts">真正把 HSE+PLL 切到 72MHz</text>
+  <text x="745" y="460" class="ts">在 main 里、USER CODE 之前被调</text>
+  <line x1="620" y1="433" x2="620" y2="433" class="wire"/>
+
+  <line x1="450" y1="461" x2="450" y2="490" class="wire" marker-end="url(#arrow)"/>
+
+  <!-- while1 -->
+  <rect x="320" y="490" width="260" height="48" class="box-user"/>
+  <text x="450" y="512" class="t">while(1) 主循环</text>
+  <text x="450" y="528" class="ts">LED 翻转、读按键、处理数据……</text>
+
+  <text x="60" y="540" class="note">注意：SystemInit() 只开了 HSI 跑在 8MHz；真正切到 72MHz 是 main() 里的 SystemClock_Config() 干的。</text>
+</svg>

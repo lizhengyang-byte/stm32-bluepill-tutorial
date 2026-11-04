@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" font-family="Consolas, 'Courier New', monospace" font-size="13">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#333"/>
+    </marker>
+    <style>
+      .title { font-size: 18px; font-weight: bold; fill: #1a1a1a; }
+      .sub { font-size: 12px; fill: #555; }
+      .regname { font-size: 14px; font-weight: bold; fill: #222; }
+      .bit { font-size: 11px; fill: #333; text-anchor: middle; }
+      .bit-hi { fill: #c62828; font-weight: bold; }
+      .bit-lo { fill: #1a5fb4; font-weight: bold; }
+      .box-set { fill: #e8f5e9; stroke: #27ae60; stroke-width: 1.5; rx: 4; }
+      .box-rst { fill: #fdecea; stroke: #c0392b; stroke-width: 1.5; rx: 4; }
+      .box-odr { fill: #e8f0fe; stroke: #1a5fb4; stroke-width: 1.5; rx: 4; }
+      .box-reserved { fill: #eee; stroke: #999; stroke-width: 1; rx: 3; }
+      .wire { stroke: #333; stroke-width: 1.5; fill: none; }
+      .note { font-size: 11px; fill: #444; }
+      .note-hi { font-size: 11px; fill: #27ae60; font-weight: bold; }
+      .note-lo { font-size: 11px; fill: #c0392b; font-weight: bold; }
+    </style>
+  </defs>
+
+  <text x="450" y="28" text-anchor="middle" class="title">GPIO 数据寄存器位图：ODR / BSRR / BRR 的关系</text>
+  <text x="450" y="48" text-anchor="middle" class="sub">BSRR 一次写操作同时完成"置位高电平"和"复位低电平"，无需读-改-写</text>
+
+  <!-- ODR row -->
+  <text x="40" y="100" class="regname">ODR (0x0C)</text>
+  <text x="40" y="116" class="sub">Output Data Register</text>
+  <g transform="translate(180,85)">
+    <rect x="0" y="0" width="600" height="36" class="box-odr"/>
+    <text x="300" y="23" text-anchor="middle" class="note">ODR15 …… ODR1 ODR0   （每个位直接决定对应引脚电平：1=高, 0=低）</text>
+  </g>
+  <text x="180" y="140" class="note bit-hi">↑ 直接读-改-写会在中断打断时丢失其他引脚状态（非原子）</text>
+
+  <!-- BSRR row -->
+  <text x="40" y="210" class="regname">BSRR (0x10)</text>
+  <text x="40" y="226" class="sub">Bit Set/Reset</text>
+  <g transform="translate(180,195)">
+    <!-- upper half: bits 16..31 -->
+    <rect x="300" y="0" width="300" height="36" class="box-rst"/>
+    <text x="450" y="23" text-anchor="middle" class="note-lo">BSRR16..BSRR31  写1 → ODRx=0 (复位/拉低)</text>
+    <!-- lower half: bits 0..15 -->
+    <rect x="0" y="0" width="300" height="36" class="box-set"/>
+    <text x="150" y="23" text-anchor="middle" class="note-hi">BSRR0..BSRR15  写1 → ODRx=1 (置位/拉高)</text>
+  </g>
+  <text x="180" y="250" class="note bit-hi">↑ 写 1 才有效，写 0 无影响；下半位置高，上半位置低，一次 32 位写操作原子完成</text>
+
+  <!-- BRR row -->
+  <text x="40" y="320" class="regname">BRR (0x14)</text>
+  <text x="40" y="336" class="sub">Bit Reset</text>
+  <g transform="translate(180,305)">
+    <rect x="300" y="0" width="300" height="36" class="box-reserved"/>
+    <text x="450" y="23" text-anchor="middle" class="note">保留（写 0）</text>
+    <rect x="0" y="0" width="300" height="36" class="box-rst"/>
+    <text x="150" y="23" text-anchor="middle" class="note-lo">BRR0..BRR15  写1 → ODRx=0 (复位/拉低)</text>
+  </g>
+  <text x="180" y="360" class="note">↑ BRR 只是 BSRR 高半字的"简写"，HAL_GPIO_WritePin 拉低时优先用 BSRR 高半字</text>
+
+  <!-- Example: PB0 -->
+  <line x1="180" y1="395" x2="780" y2="395" stroke="#bbb" stroke-width="1"/>
+  <text x="40" y="420" class="regname">例：让 PB0 输出高</text>
+  <text x="200" y="420" class="note">ODR 写法（危险）：读 ODR → OR (1&lt;&lt;0) → 写回 ODR，两步之间若被中断改写 ODR 会丢</text>
+  <text x="200" y="442" class="note-hi">BSRR 写法（安全）：GPIOx-&gt;BSRR = (1&lt;&lt;0);   一条指令，硬件原子完成，与中断无关</text>
+
+  <text x="40" y="478" class="regname">例：让 PB0 输出低</text>
+  <text x="200" y="478" class="note-lo">BSRR 写法：GPIOx-&gt;BSRR = (1&lt;&lt;16);   （高半字写 1 复位）</text>
+  <text x="200" y="500" class="note">BRR 写法：GPIOx-&gt;BRR  = (1&lt;&lt;0);    （等价，HAL 源码里用 BSRR 高半字）</text>
+</svg>

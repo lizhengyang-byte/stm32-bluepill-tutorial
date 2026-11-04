@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 480" font-family="Helvetica, Arial, 'Microsoft YaHei', sans-serif">
+  <defs>
+    <style>
+      .title { font-size: 18px; font-weight: bold; fill: #1f2937; }
+      .label { font-size: 13px; fill: #1f2937; }
+      .small { font-size: 11px; fill: #4b5563; }
+      .bit { font-size: 12px; font-weight: bold; }
+    </style>
+  </defs>
+
+  <text x="440" y="30" text-anchor="middle" class="title">NVIC 优先级分组：抢占优先级 vs 响应优先级（子优先级）</text>
+
+  <!-- Group 4 bar -->
+  <text x="40" y="80" class="label" font-weight="bold">分组 PRIORITYGROUP_4（CubeMX 默认）</text>
+  <rect x="40" y="95" width="520" height="36" fill="#3b82f6" stroke="#1e40af"/>
+  <text x="300" y="118" text-anchor="middle" fill="#fff" class="bit">抢占优先级（4 位，0–15）</text>
+  <rect x="560" y="95" width="80" height="36" fill="#d1d5db" stroke="#6b7280"/>
+  <text x="600" y="118" text-anchor="middle" class="bit" fill="#374151">子级 0 位</text>
+  <text x="40" y="148" class="small">含义：所有优先级只用来决定"谁能打断谁"，同级之间不再嵌套。</text>
+
+  <!-- Group 2 bar -->
+  <text x="40" y="195" class="label" font-weight="bold">分组 PRIORITYGROUP_2（2 位抢占 + 2 位子级）</text>
+  <rect x="40" y="210" width="260" height="36" fill="#3b82f6" stroke="#1e40af"/>
+  <text x="170" y="233" text-anchor="middle" fill="#fff" class="bit">抢占优先级（2 位，0–3）</text>
+  <rect x="300" y="210" width="260" height="36" fill="#f59e0b" stroke="#92400e"/>
+  <text x="430" y="233" text-anchor="middle" fill="#fff" class="bit">响应 / 子优先级（2 位，0–3）</text>
+  <text x="40" y="263" class="small">含义：抢占级不同才发生嵌套；同级内先到先响应，子级高的先执行（不嵌套）。</text>
+
+  <!-- Nested interrupt example -->
+  <text x="40" y="310" class="label" font-weight="bold">嵌套示意（抢占级 1 打断抢占级 3）</text>
+
+  <line x1="60" y1="340" x2="820" y2="340" stroke="#9ca3af" stroke-dasharray="4,3"/>
+  <text x="40" y="344" class="small">时间</text>
+
+  <!-- Main thread -->
+  <rect x="60" y="355" width="760" height="26" fill="#e5e7eb" stroke="#6b7280"/>
+  <text x="440" y="373" text-anchor="middle" class="label">主程序 main() 正在跑</text>
+
+  <!-- ISR3 low -->
+  <rect x="280" y="395" width="260" height="26" fill="#fde68a" stroke="#b45309"/>
+  <text x="410" y="413" text-anchor="middle" class="label">低优先级中断（抢占级 3）正在服务</text>
+
+  <!-- ISR1 high -->
+  <rect x="380" y="435" width="120" height="26" fill="#93c5fd" stroke="#1d4ed8"/>
+  <text x="440" y="453" text-anchor="middle" class="label" fill="#1e3a8a">高优先级中断（抢占级 1）</text>
+
+  <!-- arrows -->
+  <line x1="280" y1="381" x2="280" y2="395" stroke="#374151" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="380" y1="421" x2="380" y2="435" stroke="#1d4ed8" stroke-width="1.5" marker-end="url(#arr)"/>
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 z" fill="#374151"/>
+    </marker>
+  </defs>
+
+  <text x="600" y="453" class="small">数值越小 → 优先级越高。</text>
+</svg>

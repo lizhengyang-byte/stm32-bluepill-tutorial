@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="360" viewBox="0 0 800 360">
+  <style>
+    .t{font-family:"Helvetica Neue",Arial,"PingFang SC","Microsoft YaHei",sans-serif;fill:#1a1a1a}
+    .cell{stroke:#2d3748;stroke-width:1.5}
+    .lbl{font-size:12px}
+    .small{font-size:11px;fill:#555}
+  </style>
+  <rect x="0" y="0" width="800" height="360" fill="#ffffff"/>
+  <text x="400" y="28" text-anchor="middle" class="t" font-size="17" font-weight="bold">UART 一帧数据的完整结构（8N1：1 起始 + 8 数据 + 1 停止）</text>
+
+  <!-- idle line -->
+  <text x="30" y="100" class="t lbl" font-weight="bold">空闲</text>
+  <line x1="70" y1="90" x2="110" y2="90" stroke="#718096" stroke-width="2.5"/>
+  <text x="90" y="78" text-anchor="middle" class="t small">高电平(idle)</text>
+
+  <!-- start bit -->
+  <rect x="110" y="90" width="50" height="50" class="cell" fill="#fed7d7"/>
+  <text x="135" y="112" text-anchor="middle" class="t lbl" font-weight="bold">起始位</text>
+  <text x="135" y="128" text-anchor="middle" class="t small">0</text>
+
+  <!-- data bits D0..D7 -->
+  <g>
+    <rect x="160" y="90" width="50" height="50" class="cell" fill="#bee3f8"/>
+    <text x="185" y="112" text-anchor="middle" class="t lbl">D0</text>
+    <text x="185" y="128" text-anchor="middle" class="t small">1</text>
+    <rect x="210" y="90" width="50" height="50" class="cell" fill="#bee3f8"/>
+    <text x="235" y="112" text-anchor="middle" class="t lbl">D1</text>
+    <text x="235" y="128" text-anchor="middle" class="t small">0</text>
+    <rect x="260" y="90" width="50" height="50" class="cell" fill="#bee3f8"/>
+    <text x="285" y="112" text-anchor="middle" class="t lbl">D2</text>
+    <text x="285" y="128" text-anchor="middle" class="t small">1</text>
+    <rect x="310" y="90" width="50" height="50" class="cell" fill="#bee3f8"/>
+    <text x="335" y="112" text-anchor="middle" class="t lbl">D3</text>
+    <text x="335" y="128" text-anchor="middle" class="t small">0</text>
+    <rect x="360" y="90" width="50" height="50" class="cell" fill="#bee3f8"/>
+    <text x="385" y="112" text-anchor="middle" class="t lbl">D4</text>
+    <text x="385" y="128" text-anchor="middle" class="t small">1</text>
+    <rect x="410" y="90" width="50" height="50" class="cell" fill="#bee3f8"/>
+    <text x="435" y="112" text-anchor="middle" class="t lbl">D5</text>
+    <text x="435" y="128" text-anchor="middle" class="t small">1</text>
+    <rect x="460" y="90" width="50" height="50" class="cell" fill="#bee3f8"/>
+    <text x="485" y="112" text-anchor="middle" class="t lbl">D6</text>
+    <text x="485" y="128" text-anchor="middle" class="t small">0</text>
+    <rect x="510" y="90" width="50" height="50" class="cell" fill="#bee3f8"/>
+    <text x="535" y="112" text-anchor="middle" class="t lbl">D7</text>
+    <text x="535" y="128" text-anchor="middle" class="t small">1</text>
+  </g>
+
+  <!-- stop bit -->
+  <rect x="560" y="90" width="60" height="50" class="cell" fill="#c6f6d5"/>
+  <text x="590" y="112" text-anchor="middle" class="t lbl" font-weight="bold">停止位</text>
+  <text x="590" y="128" text-anchor="middle" class="t small">1</text>
+
+  <line x1="620" y1="90" x2="700" y2="90" stroke="#718096" stroke-width="2.5"/>
+  <text x="660" y="78" text-anchor="middle" class="t small">回到空闲</text>
+
+  <!-- bit width bracket -->
+  <line x1="110" y1="160" x2="170" y2="160" stroke="#333" stroke-width="1"/>
+  <text x="140" y="178" text-anchor="middle" class="t small">1 位时间 = 1/波特率</text>
+  <text x="140" y="193" text-anchor="middle" class="t small">(115200 → 8.68µs)</text>
+
+  <!-- notes -->
+  <g class="t small">
+    <text x="110" y="230">① 总线空闲时为高电平；检测到下降沿（高→低）就是一帧的开始。</text>
+    <text x="110" y="252">② 数据位从 LSB（D0）开始传，先发低位；图中这帧 = 0b10110101 = 0xB5。</text>
+    <text x="110" y="274">③ 可选校验位（Parity）位于 D7 与停止位之间，本教程默认 None。</text>
+    <text x="110" y="296">④ 停止位必须为高电平，给接收方留复位时间；115200 下一帧约 87µs。</text>
+    <text x="110" y="325">⑤ 收发双方波特率、数据位、停止位、校验位必须完全一致，否则必然乱码。</text>
+  </g>
+</svg>

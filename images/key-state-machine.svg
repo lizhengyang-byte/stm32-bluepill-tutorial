@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 460" font-family="Helvetica, Arial, 'Microsoft YaHei', sans-serif">
+  <text x="440" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#1f2937">按键状态机：短按 / 长按识别（在定时器中断里扫描）</text>
+
+  <!-- States -->
+  <ellipse cx="140" cy="140" rx="80" ry="40" fill="#dbeafe" stroke="#1e40af" stroke-width="2"/>
+  <text x="140" y="135" text-anchor="middle" font-size="14" font-weight="bold" fill="#1e3a8a">IDLE</text>
+  <text x="140" y="155" text-anchor="middle" font-size="11" fill="#1e3a8a">等待按下</text>
+
+  <ellipse cx="380" cy="140" rx="80" ry="40" fill="#fef3c7" stroke="#b45309" stroke-width="2"/>
+  <text x="380" y="135" text-anchor="middle" font-size="14" font-weight="bold" fill="#92400e">PRESSED</text>
+  <text x="380" y="155" text-anchor="middle" font-size="11" fill="#92400e">确认按下+计时</text>
+
+  <ellipse cx="640" cy="140" rx="80" ry="40" fill="#fce7f3" stroke="#be185d" stroke-width="2"/>
+  <text x="640" y="135" text-anchor="middle" font-size="14" font-weight="bold" fill="#831843">WAIT_RELEASE</text>
+  <text x="640" y="155" text-anchor="middle" font-size="11" fill="#831843">已触发长按</text>
+
+  <ellipse cx="380" cy="330" rx="80" ry="40" fill="#d1fae5" stroke="#047857" stroke-width="2"/>
+  <text x="380" y="325" text-anchor="middle" font-size="14" font-weight="bold" fill="#065f46">SHORT_FIRED</text>
+  <text x="380" y="345" text-anchor="middle" font-size="11" fill="#065f46">短按事件</text>
+
+  <ellipse cx="640" cy="330" rx="80" ry="40" fill="#fee2e2" stroke="#b91c1c" stroke-width="2"/>
+  <text x="640" y="325" text-anchor="middle" font-size="14" font-weight="bold" fill="#7f1d1d">LONG_FIRED</text>
+  <text x="640" y="345" text-anchor="middle" font-size="11" fill="#7f1d1d">长按事件</text>
+
+  <!-- transitions -->
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
+    </marker>
+  </defs>
+
+  <line x1="220" y1="140" x2="300" y2="140" stroke="#374151" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="260" y="128" text-anchor="middle" font-size="11" fill="#374151">检测到低电平</text>
+  <text x="260" y="165" text-anchor="middle" font-size="11" fill="#374151">消抖 20ms</text>
+
+  <line x1="460" y1="140" x2="560" y2="140" stroke="#b91c1c" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="510" y="128" text-anchor="middle" font-size="11" fill="#b91c1c" font-weight="bold">计时 ≥ 1s 仍按住</text>
+
+  <line x1="380" y1="180" x2="380" y2="290" stroke="#047857" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="330" y="240" text-anchor="middle" font-size="11" fill="#047857" font-weight="bold">松手，且 &lt; 1s</text>
+
+  <line x1="640" y1="180" x2="640" y2="290" stroke="#b91c1c" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="700" y="240" font-size="11" fill="#b91c1c">松手</text>
+
+  <!-- back to idle -->
+  <path d="M 300 330 Q 140 380 140 180" fill="none" stroke="#374151" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="180" y="395" text-anchor="middle" font-size="11" fill="#374151">事件已上报，回 IDLE</text>
+
+  <path d="M 720 330 Q 820 380 720 200" fill="none" stroke="#374151" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="800" y="395" text-anchor="middle" font-size="11" fill="#374151">事件已上报</text>
+
+  <!-- note -->
+  <text x="60" y="440" font-size="12" fill="#1f2937">
+    每次状态迁移只在 10ms 定时器中断里扫描一次引脚；事件置标志位，主循环再根据标志做动作。
+  </text>
+</svg>

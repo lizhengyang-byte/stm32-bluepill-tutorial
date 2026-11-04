@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 420" font-family="Consolas, 'Courier New', monospace" font-size="13">
+  <style>
+    .title { font-size: 18px; font-weight: bold; fill: #1a1a1a; }
+    .sub { font-size: 12px; fill: #555; }
+    .hdr { font-size: 13px; font-weight: bold; fill: #fff; text-anchor: middle; }
+    .cell { font-size: 12px; fill: #222; }
+    .cell-c { font-size: 12px; fill: #222; text-anchor: middle; }
+    .tag-hse { fill: #c62828; font-weight: bold; }
+    .tag-hsi { fill: #1a5fb4; font-weight: bold; }
+    .tag-lse { fill: #27ae60; font-weight: bold; }
+    .tag-lsi { fill: #8e44ad; font-weight: bold; }
+    .row-a { fill: #f7f9fc; }
+    .row-b { fill: #ffffff; }
+    .border { stroke: #bbb; stroke-width: 1; }
+  </style>
+
+  <text x="460" y="28" text-anchor="middle" class="title">STM32F103 四个振荡源一览</text>
+  <text x="460" y="48" text-anchor="middle" class="sub">HSI/HSE 给系统跑主频；LSI/LSE 只给 RTC 和看门狗用，平时不参与 CPU</text>
+
+  <!-- header row -->
+  <rect x="20" y="70" width="180" height="36" fill="#37474f" class="border"/>
+  <text x="110" y="93" class="hdr">项目</text>
+  <rect x="200" y="70" width="180" height="36" fill="#c62828" class="border"/>
+  <text x="290" y="93" class="hdr">HSE 高速外部</text>
+  <rect x="380" y="70" width="180" height="36" fill="#1a5fb4" class="border"/>
+  <text x="470" y="93" class="hdr">HSI 高速内部</text>
+  <rect x="560" y="70" width="170" height="36" fill="#27ae60" class="border"/>
+  <text x="645" y="93" class="hdr">LSE 低速外部</text>
+  <rect x="730" y="70" width="170" height="36" fill="#8e44ad" class="border"/>
+  <text x="815" y="93" class="hdr">LSI 低速内部</text>
+
+  <!-- rows -->
+  <g class="row-a">
+    <rect x="20" y="106" width="880" height="44" class="row-a border"/>
+    <text x="30" y="132" class="cell">频率</text>
+    <text x="290" y="132" class="cell-c">8MHz（蓝pill 板载）</text>
+    <text x="470" y="132" class="cell-c">8MHz（RC 振荡）</text>
+    <text x="645" y="132" class="cell-c">32.768 kHz</text>
+    <text x="815" y="132" class="cell-c">≈40 kHz</text>
+  </g>
+  <g class="row-b">
+    <rect x="20" y="150" width="880" height="44" class="row-b border"/>
+    <text x="30" y="176" class="cell">来源</text>
+    <text x="290" y="176" class="cell-c">外部石英晶振+2 负载电容</text>
+    <text x="470" y="176" class="cell-c">芯片内部 RC 振荡器</text>
+    <text x="645" y="176" class="cell-c">外部 32k 表晶</text>
+    <text x="815" y="176" class="cell-c">芯片内部 RC</text>
+  </g>
+  <g class="row-a">
+    <rect x="20" y="194" width="880" height="44" class="row-a border"/>
+    <text x="30" y="220" class="cell">精度</text>
+    <text x="290" y="220" class="cell-c tag-hse">±20ppm（很准）</text>
+    <text x="470" y="220" class="cell-c tag-hsi">±1%~±5%（漂）</text>
+    <text x="645" y="220" class="cell-c tag-lse">±20ppm（很准）</text>
+    <text x="815" y="220" class="cell-c tag-lsi">±5%（很漂）</text>
+  </g>
+  <g class="row-b">
+    <rect x="20" y="238" width="880" height="44" class="row-b border"/>
+    <text x="30" y="264" class="cell">用途</text>
+    <text x="290" y="264" class="cell-c">PLL 输入→系统主频</text>
+    <text x="470" y="264" class="cell-c">上电默认源/故障兜底</text>
+    <text x="645" y="264" class="cell-c">RTC 走时</text>
+    <text x="815" y="264" class="cell-c">独立看门狗/RTC 备用</text>
+  </g>
+  <g class="row-a">
+    <rect x="20" y="282" width="880" height="44" class="row-a border"/>
+    <text x="30" y="308" class="cell">蓝pill 焊接</text>
+    <text x="290" y="308" class="cell-c tag-hse">板载已焊（8MHz）</text>
+    <text x="470" y="308" class="cell-c">芯片内部，不用管</text>
+    <text x="645" y="308" class="cell-c tag-lse">多数批次未焊</text>
+    <text x="815" y="308" class="cell-c">芯片内部，不用管</text>
+  </g>
+  <g class="row-b">
+    <rect x="20" y="326" width="880" height="56" class="row-b border"/>
+    <text x="30" y="350" class="cell">你要关心的</text>
+    <text x="290" y="350" class="cell-c">串口波特率不准、USB</text>
+    <text x="470" y="350" class="cell-c">没接外部晶振时的默认</text>
+    <text x="645" y="350" class="cell-c">要做 RTC 日历才用</text>
+    <text x="815" y="350" class="cell-c">开看门狗自动启用</text>
+    <text x="290" y="368" class="cell-c">跑不起来先查它</text>
+    <text x="470" y="368" class="cell-c">选项（±1% 也够点灯）</text>
+    <text x="645" y="368" class="cell-c">，自己焊一颗</text>
+    <text x="815" y="368" class="cell-c">，不占 CPU</text>
+  </g>
+
+  <text x="20" y="408" class="cell">记忆：高速靠 HSE（外部 8M），低速靠 LSE（32k 表晶）；HSI/LSI 是芯片里"自带但有点飘"的兜底振荡器。</text>
+</svg>

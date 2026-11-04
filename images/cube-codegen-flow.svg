@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="430" viewBox="0 0 860 430" font-family="Helvetica, Arial, sans-serif">
+  <rect width="860" height="430" fill="#fafbfc"/>
+  <text x="430" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#222">CubeMX 重新生成代码时，你的代码为什么不会丢</text>
+
+  <!-- ioc -->
+  <rect x="40" y="80" width="160" height="90" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+  <text x="120" y="112" text-anchor="middle" font-size="13" font-weight="bold" fill="#14532d">LedDemo.ioc</text>
+  <text x="120" y="134" text-anchor="middle" font-size="11" fill="#14532d">图形化配置存档</text>
+  <text x="120" y="152" text-anchor="middle" font-size="11" fill="#14532d">改配置都在这</text>
+
+  <!-- arrow generate -->
+  <line x1="200" y1="125" x2="280" y2="125" stroke="#555" stroke-width="2" marker-end="url(#a2)"/>
+  <text x="240" y="115" text-anchor="middle" font-size="11" fill="#555">GENERATE</text>
+
+  <!-- main.c zones -->
+  <rect x="280" y="60" width="540" height="330" rx="6" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+  <text x="550" y="85" text-anchor="middle" font-size="13" font-weight="bold" fill="#1e3a8a">main.c（每次生成都重写）</text>
+
+  <rect x="300" y="100" width="500" height="55" rx="4" fill="#e5e7eb"/>
+  <text x="310" y="122" font-size="11.5" fill="#374151">/*  CubeMX 自动生成：MX_GPIO_Init()、时钟配置…  */</text>
+  <text x="310" y="142" font-size="11.5" fill="#9ca3af">↑ 这一段每次都被覆盖，不要在这里写自己的代码</text>
+
+  <rect x="300" y="170" width="500" height="60" rx="4" fill="#dcfce7" stroke="#16a34a" stroke-width="2" stroke-dasharray="5,3"/>
+  <text x="310" y="192" font-size="11.5" font-weight="bold" fill="#14532d">/* USER CODE BEGIN 2 */</text>
+  <text x="310" y="212" font-size="11.5" fill="#14532d">HAL_GPIO_WritePin(...);  ← 你写的代码放在这两个注释之间</text>
+  <text x="310" y="228" font-size="11.5" font-weight="bold" fill="#14532d">/* USER CODE END 2 */</text>
+
+  <rect x="300" y="245" width="500" height="55" rx="4" fill="#e5e7eb"/>
+  <text x="310" y="267" font-size="11.5" fill="#374151">while(1) { HAL_Delay(); }  // CubeMX 生成的主循环骨架</text>
+  <text x="310" y="287" font-size="11.5" fill="#9ca3af">↑ 循环里你自己的代码，也写在循环内的 USER CODE 区</text>
+
+  <text x="550" y="330" text-anchor="middle" font-size="12" fill="#16a34a" font-weight="bold">绿色保护区 = CubeMX 认得标记，重新生成时原样保留</text>
+  <text x="550" y="355" text-anchor="middle" font-size="12" fill="#333">灰色区 = CubeMX 完全掌控，手改了下次生成就被抹掉</text>
+  <text x="550" y="380" text-anchor="middle" font-size="12" fill="#666">所以：想加引脚/换串口？回 .ioc 改，别直接改 main.c</text>
+  <defs><marker id="a2" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#555"/></marker></defs>
+</svg>

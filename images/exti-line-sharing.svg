@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" font-family="Helvetica, Arial, 'Microsoft YaHei', sans-serif">
+  <text x="440" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#1f2937">EXTI 线分配：同号引脚共享一条 EXTI 线</text>
+
+  <!-- GPIO columns -->
+  <g font-size="12">
+    <text x="120" y="60" text-anchor="middle" font-weight="bold" fill="#1e40af">PA</text>
+    <text x="220" y="60" text-anchor="middle" font-weight="bold" fill="#1e40af">PB</text>
+    <text x="320" y="60" text-anchor="middle" font-weight="bold" fill="#1e40af">PC</text>
+    <text x="420" y="60" text-anchor="middle" font-weight="bold" fill="#1e40af">PD</text>
+  </g>
+
+  <!-- EXTI0 row -->
+  <g font-size="12">
+    <rect x="80" y="80" width="80" height="34" fill="#dbeafe" stroke="#1e40af"/>
+    <text x="120" y="101" text-anchor="middle">PA0</text>
+    <rect x="180" y="80" width="80" height="34" fill="#dbeafe" stroke="#1e40af"/>
+    <text x="220" y="101" text-anchor="middle">PB0</text>
+    <rect x="280" y="80" width="80" height="34" fill="#dbeafe" stroke="#1e40af"/>
+    <text x="320" y="101" text-anchor="middle">PC0</text>
+    <rect x="380" y="80" width="80" height="34" fill="#dbeafe" stroke="#1e40af"/>
+    <text x="420" y="101" text-anchor="middle">PD0</text>
+  </g>
+  <text x="500" y="101" font-size="13" fill="#1e40af" font-weight="bold">→ EXTI0（只能选其中一路）</text>
+
+  <!-- EXTI1 row -->
+  <g font-size="12">
+    <rect x="80" y="130" width="80" height="34" fill="#d1fae5" stroke="#047857"/>
+    <text x="120" y="151" text-anchor="middle">PA1</text>
+    <rect x="180" y="130" width="80" height="34" fill="#d1fae5" stroke="#047857"/>
+    <text x="220" y="151" text-anchor="middle">PB1</text>
+    <rect x="280" y="130" width="80" height="34" fill="#d1fae5" stroke="#047857"/>
+    <text x="320" y="151" text-anchor="middle">PC1</text>
+    <rect x="380" y="130" width="80" height="34" fill="#d1fae5" stroke="#047857"/>
+    <text x="420" y="151" text-anchor="middle">PD1</text>
+  </g>
+  <text x="500" y="151" font-size="13" fill="#047857" font-weight="bold">→ EXTI1（只能选其中一路）</text>
+
+  <!-- EXTI2 row -->
+  <g font-size="12">
+    <rect x="80" y="180" width="80" height="34" fill="#fef3c7" stroke="#b45309"/>
+    <text x="120" y="201" text-anchor="middle">PA2</text>
+    <rect x="180" y="180" width="80" height="34" fill="#fef3c7" stroke="#b45309"/>
+    <text x="220" y="201" text-anchor="middle">PB2</text>
+    <rect x="280" y="180" width="80" height="34" fill="#fef3c7" stroke="#b45309"/>
+    <text x="320" y="201" text-anchor="middle">PC2</text>
+  </g>
+  <text x="500" y="201" font-size="13" fill="#b45309" font-weight="bold">→ EXTI2</text>
+
+  <!-- EXTI3 row -->
+  <g font-size="12">
+    <rect x="80" y="230" width="80" height="34" fill="#fce7f3" stroke="#be185d"/>
+    <text x="120" y="251" text-anchor="middle">PA3</text>
+    <rect x="180" y="230" width="80" height="34" fill="#fce7f3" stroke="#be185d"/>
+    <text x="220" y="251" text-anchor="middle">PB3</text>
+  </g>
+  <text x="500" y="251" font-size="13" fill="#be185d" font-weight="bold">→ EXTI3</text>
+
+  <!-- EXTI4 row -->
+  <g font-size="12">
+    <rect x="80" y="280" width="80" height="34" fill="#ede9fe" stroke="#6d28d9"/>
+    <text x="120" y="301" text-anchor="middle">PA4</text>
+    <rect x="180" y="280" width="80" height="34" fill="#ede9fe" stroke="#6d28d9"/>
+    <text x="220" y="301" text-anchor="middle">PB4</text>
+  </g>
+  <text x="500" y="301" font-size="13" fill="#6d28d9" font-weight="bold">→ EXTI4</text>
+
+  <!-- EXTI5..9 merged -->
+  <rect x="80" y="340" width="380" height="34" fill="#f3f4f6" stroke="#374151"/>
+  <text x="270" y="361" text-anchor="middle">PA5–PA9 / PB5–PB9 / …</text>
+  <text x="500" y="361" font-size="13" fill="#374151" font-weight="bold">→ EXTI5_9（共用一条中断向量）</text>
+
+  <!-- EXTI10..15 merged -->
+  <rect x="80" y="390" width="380" height="34" fill="#f3f4f6" stroke="#374151"/>
+  <text x="270" y="411" text-anchor="middle">PA10–PA15 / PB10–PB15 / …</text>
+  <text x="500" y="411" font-size="13" fill="#374151" font-weight="bold">→ EXTI15_10（共用一条中断向量）</text>
+
+  <!-- AFIO note -->
+  <text x="60" y="460" font-size="13" fill="#1f2937">
+    <tspan font-weight="bold">关键规则：</tspan>
+    EXTI0~4 各自对应独立中断向量；EXTI5~9 共用一条 EXTI9_5_IRQHandler；EXTI10~15 共用一条 EXTI15_10_IRQHandler。
+  </text>
+  <text x="60" y="485" font-size="13" fill="#1f2937">
+    选哪一路引脚由 <tspan font-weight="bold">AFIO_EXTICR</tspan> 寄存器决定（CubeMX 选 GPIO_EXTIx 时自动写好）。
+  </text>
+</svg>

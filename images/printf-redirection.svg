@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="400" viewBox="0 0 800 400">
+  <style>
+    .t{font-family:"Helvetica Neue",Arial,"PingFang SC","Microsoft YaHei",sans-serif;fill:#1a1a1a}
+    .box{fill:#f7fafc;stroke:#4a5568;stroke-width:1.5;rx:6}
+    .user{fill:#ebf8ff;stroke:#2b6cb0;stroke-width:1.5;rx:6}
+    .hw{fill:#fef5e7;stroke:#c05621;stroke-width:1.5;rx:6}
+    .lbl{font-size:13px}
+    .small{font-size:11px;fill:#555}
+  </style>
+  <rect x="0" y="0" width="800" height="400" fill="#ffffff"/>
+  <text x="400" y="28" text-anchor="middle" class="t" font-size="17" font-weight="bold">printf 重定向调用链：一个字符是怎么走到串口线的</text>
+
+  <rect x="60" y="70" width="200" height="60" class="box"/>
+  <text x="160" y="95" text-anchor="middle" class="t lbl" font-weight="bold">你的代码</text>
+  <text x="160" y="113" text-anchor="middle" class="t small">printf("x=%d", x);</text>
+
+  <rect x="300" y="70" width="200" height="60" class="box"/>
+  <text x="400" y="95" text-anchor="middle" class="t lbl" font-weight="bold">C 库 (newlib)</text>
+  <text x="400" y="113" text-anchor="middle" class="t small">格式化 → 拆成一个个字符</text>
+
+  <rect x="540" y="70" width="200" height="60" class="user"/>
+  <text x="640" y="95" text-anchor="middle" class="t lbl" font-weight="bold">fputc()（我们改写）</text>
+  <text x="640" y="113" text-anchor="middle" class="t small">每个字符调一次</text>
+
+  <rect x="540" y="180" width="200" height="60" class="user"/>
+  <text x="640" y="205" text-anchor="middle" class="t lbl" font-weight="bold">HAL_UART_Transmit()</text>
+  <text x="640" y="223" text-anchor="middle" class="t small">把 1 字节塞进 USART1→DR</text>
+
+  <rect x="300" y="180" width="200" height="60" class="hw"/>
+  <text x="400" y="205" text-anchor="middle" class="t lbl" font-weight="bold">USART1 外设硬件</text>
+  <text x="400" y="223" text-anchor="middle" class="t small">并串转换，按波特率移位发出</text>
+
+  <rect x="60" y="180" width="200" height="60" class="hw"/>
+  <text x="160" y="205" text-anchor="middle" class="t lbl" font-weight="bold">PA9 (TX) 引脚</text>
+  <text x="160" y="223" text-anchor="middle" class="t small">3.3V TTL 电平跳变</text>
+
+  <rect x="60" y="290" width="680" height="60" class="box"/>
+  <text x="400" y="315" text-anchor="middle" class="t lbl" font-weight="bold">USB 转 TTL 模块 → 电脑 USB → 串口助手（XCOM / PuTTY）显示文字</text>
+  <text x="400" y="335" text-anchor="middle" class="t small">Keil 需勾 MicroLIB；GCC/CubeIDE 下通常直接可用，打印浮点要加 -u _printf_float</text>
+
+  <line x1="260" y1="100" x2="300" y2="100" stroke="#4a5568" stroke-width="1.5" marker-end="url(#a3)"/>
+  <line x1="500" y1="100" x2="540" y2="100" stroke="#2b6cb0" stroke-width="1.5" marker-end="url(#a3)"/>
+  <line x1="640" y1="130" x2="640" y2="180" stroke="#2b6cb0" stroke-width="1.5" marker-end="url(#a3)"/>
+  <line x1="540" y1="210" x2="500" y2="210" stroke="#c05621" stroke-width="1.5" marker-end="url(#a3)"/>
+  <line x1="300" y1="210" x2="260" y2="210" stroke="#c05621" stroke-width="1.5" marker-end="url(#a3)"/>
+  <line x1="160" y1="240" x2="160" y2="290" stroke="#4a5568" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#a3)"/>
+  <defs><marker id="a3" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6" fill="none" stroke="#4a5568"/></marker></defs>
+</svg>
