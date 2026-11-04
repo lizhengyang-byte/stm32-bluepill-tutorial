@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 560" font-family="Consolas, 'Courier New', monospace" font-size="13">
+  <defs>
+    <marker id="arr5" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#333"/>
+    </marker>
+    <style>
+      .block { fill: #e8f0fe; stroke: #4a7abc; stroke-width: 1.5; rx: 8; }
+      .block2 { fill: #fff3e0; stroke: #e8833a; stroke-width: 1.5; rx: 8; }
+      .block3 { fill: #e8f5e9; stroke: #4caf50; stroke-width: 1.5; rx: 8; }
+      .block4 { fill: #fce4ec; stroke: #c62828; stroke-width: 1.5; rx: 8; }
+      .lbl { fill: #222; font-size: 13px; text-anchor: middle; }
+      .sub { fill: #555; font-size: 11px; text-anchor: middle; }
+      .ln { stroke: #333; stroke-width: 1.5; fill: none; }
+      .formula { fill: #c62828; font-weight: bold; }
+    </style>
+  </defs>
+
+  <text x="430" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">定时器计数原理（向上计数模式）</text>
+
+  <!-- Clock input -->
+  <rect x="40" y="70" width="130" height="55" class="block3"/>
+  <text x="105" y="93" class="lbl" font-weight="bold">内部时钟源</text>
+  <text x="105" y="112" class="sub">CK_INT = 72 MHz</text>
+
+  <!-- PSC -->
+  <line x1="170" y1="97" x2="220" y2="97" class="ln" marker-end="url(#arr5)"/>
+  <rect x="220" y="70" width="150" height="55" class="block2"/>
+  <text x="295" y="93" class="lbl" font-weight="bold">PSC 预分频器</text>
+  <text x="295" y="112" class="sub">分频系数 = PSC + 1</text>
+
+  <!-- CNT -->
+  <line x1="370" y1="97" x2="420" y2="97" class="ln" marker-end="url(#arr5)"/>
+  <rect x="420" y="70" width="150" height="55" class="block"/>
+  <text x="495" y="93" class="lbl" font-weight="bold">CNT 计数器</text>
+  <text x="495" y="112" class="sub">从 0 向上累加</text>
+
+  <!-- ARR compare -->
+  <line x1="570" y1="97" x2="620" y2="97" class="ln" marker-end="url(#arr5)"/>
+  <rect x="620" y="70" width="180" height="55" class="block4"/>
+  <text x="710" y="93" class="lbl" font-weight="bold">与 ARR 比较</text>
+  <text x="710" y="112" class="sub">ARR = 自动重装载值</text>
+
+  <!-- CNT waveform visualization -->
+  <text x="430" y="165" text-anchor="middle" font-size="14" font-weight="bold" fill="#333">CNT 计数波形示意（向上计数）</text>
+
+  <!-- Baseline -->
+  <line x1="80" y1="280" x2="800" y2="280" stroke="#999" stroke-width="1" stroke-dasharray="4"/>
+  <text x="60" y="285" font-size="11" fill="#999" text-anchor="end">0</text>
+
+  <!-- ARR line -->
+  <line x1="80" y1="190" x2="800" y2="190" stroke="#c62828" stroke-width="1.5" stroke-dasharray="6"/>
+  <text x="805" y="195" font-size="11" fill="#c62828">ARR</text>
+
+  <!-- Counting sawtooth -->
+  <polyline points="80,280 200,190 200,280 320,190 320,280 440,190 440,280 560,190 560,280 680,190 680,280 800,190" 
+            fill="none" stroke="#4a7abc" stroke-width="2.5"/>
+
+  <!-- Labels for overflow points -->
+  <circle cx="200" cy="190" r="4" fill="#c62828"/>
+  <text x="200" y="175" text-anchor="middle" font-size="10" fill="#c62828">溢出/更新</text>
+  <circle cx="320" cy="190" r="4" fill="#c62828"/>
+  <text x="320" y="175" text-anchor="middle" font-size="10" fill="#c62828">更新事件</text>
+  <circle cx="440" cy="190" r="4" fill="#c62828"/>
+  <text x="440" y="175" text-anchor="middle" font-size="10" fill="#c62828">更新事件</text>
+  <circle cx="560" cy="190" r="4" fill="#c62828"/>
+  <text x="560" y="175" text-anchor="middle" font-size="10" fill="#c62828">更新事件</text>
+  <circle cx="680" cy="190" r="4" fill="#c62828"/>
+  <text x="680" y="175" text-anchor="middle" font-size="10" fill="#c62828">更新事件</text>
+
+  <!-- Update event arrow down -->
+  <line x1="200" y1="190" x2="200" y2="310" class="ln" marker-end="url(#arr5)" stroke="#c62828"/>
+  <rect x="120" y="310" width="160" height="45" class="block4"/>
+  <text x="200" y="330" class="lbl" font-weight="bold" fill="#c62828">更新中断（Update）</text>
+  <text x="200" y="348" class="sub">触发 TIMx_IRQHandler()</text>
+
+  <!-- Formula box -->
+  <rect x="100" y="390" width="660" height="100" fill="#fff8e1" stroke="#f9a825" stroke-width="1.5" rx="8"/>
+  <text x="430" y="418" text-anchor="middle" font-size="15" font-weight="bold" fill="#e65100">⏱ 定时时间计算公式</text>
+  <text x="430" y="448" text-anchor="middle" font-size="16" class="formula">
+    T = (ARR + 1) × (PSC + 1) / f<tspan baseline-shift="sub" font-size="12">TIM</tspan>
+  </text>
+  <text x="430" y="475" text-anchor="middle" font-size="12" fill="#555">
+    例：TIM2 定时 1 秒 → f=72MHz，取 PSC=7199（分频 7200），ARR=9999 → T = 10000 × 7200 / 72MHz = 1 s
+  </text>
+
+  <!-- Example calculation -->
+  <rect x="100" y="510" width="660" height="35" fill="#f5f5f5" stroke="#bbb" stroke-width="1" rx="4"/>
+  <text x="430" y="532" text-anchor="middle" font-size="11" fill="#555">
+    PSC=7199 → 计数时钟 = 72MHz / 7200 = 10 kHz；ARR=9999 → 计数 10000 次溢出 = 10000 / 10000 = 1 秒
+  </text>
+</svg>

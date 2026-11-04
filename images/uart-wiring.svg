@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" font-family="Arial, sans-serif">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#333"/>
+    </marker>
+    <marker id="arrowRed" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#c0392b"/>
+    </marker>
+    <marker id="arrowBlue" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#2980b9"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="400" y="30" text-anchor="middle" font-size="20" font-weight="bold">串口 UART 交叉接线图（USART1）</text>
+
+  <!-- STM32 Blue Pill box -->
+  <rect x="50" y="80" width="260" height="300" rx="8" fill="#e8f4fd" stroke="#2980b9" stroke-width="2"/>
+  <text x="180" y="110" text-anchor="middle" font-size="16" font-weight="bold" fill="#2980b9">STM32F103C8T6</text>
+  <text x="180" y="130" text-anchor="middle" font-size="13" fill="#555">Blue Pill 开发板</text>
+
+  <!-- STM32 pins -->
+  <rect x="250" y="160" width="60" height="28" rx="4" fill="#2980b9"/>
+  <text x="280" y="179" text-anchor="middle" font-size="13" fill="white" font-weight="bold">PA9 TX</text>
+
+  <rect x="250" y="220" width="60" height="28" rx="4" fill="#27ae60"/>
+  <text x="280" y="239" text-anchor="middle" font-size="13" fill="white" font-weight="bold">PA10 RX</text>
+
+  <rect x="250" y="280" width="60" height="28" rx="4" fill="#7f8c8d"/>
+  <text x="280" y="299" text-anchor="middle" font-size="13" fill="white" font-weight="bold">GND</text>
+
+  <!-- USB-TTL module box -->
+  <rect x="490" y="80" width="260" height="300" rx="8" fill="#fef9e7" stroke="#f39c12" stroke-width="2"/>
+  <text x="620" y="110" text-anchor="middle" font-size="16" font-weight="bold" fill="#f39c12">USB 转 TTL 模块</text>
+  <text x="620" y="130" text-anchor="middle" font-size="13" fill="#555">CH340 / CP2102</text>
+
+  <!-- Module pins -->
+  <rect x="490" y="160" width="60" height="28" rx="4" fill="#27ae60"/>
+  <text x="520" y="179" text-anchor="middle" font-size="13" fill="white" font-weight="bold">RXD</text>
+
+  <rect x="490" y="220" width="60" height="28" rx="4" fill="#2980b9"/>
+  <text x="520" y="239" text-anchor="middle" font-size="13" fill="white" font-weight="bold">TXD</text>
+
+  <rect x="490" y="280" width="60" height="28" rx="4" fill="#7f8c8d"/>
+  <text x="520" y="299" text-anchor="middle" font-size="13" fill="white" font-weight="bold">GND</text>
+
+  <rect x="490" y="340" width="60" height="28" rx="4" fill="#c0392b"/>
+  <text x="520" y="359" text-anchor="middle" font-size="13" fill="white" font-weight="bold">VCC</text>
+
+  <!-- Crossover lines: TX→RX, RX→TX -->
+  <path d="M310,174 C380,174 420,174 490,174" stroke="#c0392b" stroke-width="2.5" fill="none" marker-end="url(#arrowRed)"/>
+  <text x="400" y="165" text-anchor="middle" font-size="12" fill="#c0392b" font-weight="bold">TX → RX（交叉）</text>
+
+  <path d="M310,234 C380,234 420,234 490,234" stroke="#2980b9" stroke-width="2.5" fill="none" marker-end="url(#arrowBlue)"/>
+  <text x="400" y="225" text-anchor="middle" font-size="12" fill="#2980b9" font-weight="bold">RX ← TX（交叉）</text>
+
+  <!-- GND line -->
+  <line x1="310" y1="294" x2="490" y2="294" stroke="#7f8c8d" stroke-width="2.5"/>
+  <text x="400" y="285" text-anchor="middle" font-size="12" fill="#555">GND 共地（必须连接）</text>
+
+  <!-- VCC note -->
+  <text x="620" y="395" text-anchor="middle" font-size="12" fill="#c0392b">VCC 接 3.3V 或 5V（根据模块跳线）</text>
+
+  <!-- Bottom note -->
+  <rect x="50" y="400" width="700" height="35" rx="5" fill="#fdedec" stroke="#e74c3c" stroke-width="1"/>
+  <text x="400" y="422" text-anchor="middle" font-size="13" fill="#c0392b">
+    关键：TX 接 RX、RX 接 TX（交叉接线），双方必须共地 GND
+  </text>
+</svg>

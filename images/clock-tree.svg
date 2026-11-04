@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 680" font-family="Consolas, 'Courier New', monospace" font-size="13">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#333"/>
+    </marker>
+    <style>
+      .box { fill: #e8f0fe; stroke: #4a7abc; stroke-width: 1.5; rx: 6; }
+      .box2 { fill: #fff3e0; stroke: #e8833a; stroke-width: 1.5; rx: 6; }
+      .box3 { fill: #e8f5e9; stroke: #4caf50; stroke-width: 1.5; rx: 6; }
+      .box4 { fill: #fce4ec; stroke: #c62828; stroke-width: 1.5; rx: 6; }
+      .lbl { fill: #222; font-size: 12px; text-anchor: middle; }
+      .big { font-size: 16px; font-weight: bold; }
+      .freq { fill: #c62828; font-weight: bold; }
+      .note { fill: #555; font-size: 11px; }
+      .arrow-line { stroke: #333; stroke-width: 1.5; fill: none; }
+    </style>
+  </defs>
+
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">STM32F103C8T6 时钟树结构图（HSE 8MHz → SYSCLK 72MHz）</text>
+
+  <!-- Clock sources row -->
+  <text x="20" y="60" font-size="13" font-weight="bold" fill="#4a7abc">时钟源</text>
+  <rect x="60" y="70" width="130" height="50" class="box"/>
+  <text x="125" y="92" class="lbl big">HSE</text>
+  <text x="125" y="110" class="lbl freq">8 MHz 外部晶振</text>
+
+  <rect x="220" y="70" width="130" height="50" class="box"/>
+  <text x="285" y="92" class="lbl big">HSI</text>
+  <text x="285" y="110" class="lbl freq">8 MHz 内部 RC</text>
+
+  <rect x="380" y="70" width="130" height="50" class="box"/>
+  <text x="445" y="92" class="lbl big">LSI</text>
+  <text x="445" y="110" class="lbl freq">40 kHz 内部 RC</text>
+
+  <rect x="540" y="70" width="130" height="50" class="box"/>
+  <text x="605" y="92" class="lbl big">LSE</text>
+  <text x="605" y="110" class="lbl freq">32.768 kHz 外部</text>
+
+  <!-- PLL mux -->
+  <text x="20" y="170" font-size="13" font-weight="bold" fill="#e8833a">PLL 阶段</text>
+  <rect x="120" y="155" width="120" height="45" class="box2"/>
+  <text x="180" y="175" class="lbl">PLL 源选择</text>
+  <text x="180" y="192" class="lbl note">HSE 或 HSI/2</text>
+
+  <line x1="125" y1="120" x2="155" y2="155" class="arrow-line" marker-end="url(#arrow)"/>
+  <line x1="285" y1="120" x2="210" y2="155" class="arrow-line" marker-end="url(#arrow)"/>
+
+  <rect x="300" y="155" width="130" height="45" class="box2"/>
+  <text x="365" y="175" class="lbl">PLL 倍频</text>
+  <text x="365" y="192" class="lbl freq">×9</text>
+
+  <line x1="240" y1="177" x2="300" y2="177" class="arrow-line" marker-end="url(#arrow)"/>
+
+  <!-- SYSCLK -->
+  <rect x="490" y="155" width="140" height="45" class="box3"/>
+  <text x="560" y="175" class="lbl big">SYSCLK</text>
+  <text x="560" y="192" class="lbl freq">72 MHz</text>
+
+  <line x1="430" y1="177" x2="490" y2="177" class="arrow-line" marker-end="url(#arrow)"/>
+  <text x="460" y="170" class="lbl note">8 MHz × 9 = 72 MHz</text>
+
+  <!-- AHB -->
+  <rect x="490" y="250" width="140" height="50" class="box3"/>
+  <text x="560" y="272" class="lbl big">AHB 总线</text>
+  <text x="560" y="290" class="lbl freq">HCLK = 72 MHz（÷1）</text>
+
+  <line x1="560" y1="200" x2="560" y2="250" class="arrow-line" marker-end="url(#arrow)"/>
+  <text x="600" y="228" class="lbl note">AHB 预分频 = ÷1</text>
+
+  <!-- AHB peripherals -->
+  <text x="560" y="325" text-anchor="middle" class="lbl note">AHB 外设：Flash 控制器 · SRAM · DMA · 以太网</text>
+
+  <!-- APB1 -->
+  <rect x="280" y="360" width="160" height="50" class="box4"/>
+  <text x="360" y="382" class="lbl big">APB1 总线</text>
+  <text x="360" y="400" class="lbl freq">PCLK1 = 36 MHz（÷2）</text>
+
+  <line x1="530" y1="300" x2="400" y2="360" class="arrow-line" marker-end="url(#arrow)"/>
+  <text x="440" y="340" class="lbl note">APB1 预分频 = ÷2</text>
+
+  <!-- APB2 -->
+  <rect x="640" y="360" width="160" height="50" class="box4"/>
+  <text x="720" y="382" class="lbl big">APB2 总线</text>
+  <text x="720" y="400" class="lbl freq">PCLK2 = 72 MHz（÷1）</text>
+
+  <line x1="590" y1="300" x2="680" y2="360" class="arrow-line" marker-end="url(#arrow)"/>
+  <text x="660" y="340" class="lbl note">APB2 预分频 = ÷1</text>
+
+  <!-- APB1 peripherals -->
+  <rect x="100" y="440" width="200" height="80" class="box"/>
+  <text x="200" y="460" class="lbl" font-weight="bold">APB1 外设</text>
+  <text x="200" y="480" class="lbl note">定时器 TIM2~TIM7（时钟×2=72MHz）</text>
+  <text x="200" y="498" class="lbl note">USART2/3/4/5 · SPI2/3 · I2C1/2</text>
+
+  <line x1="340" y1="410" x2="240" y2="440" class="arrow-line" marker-end="url(#arrow)"/>
+
+  <!-- APB2 peripherals -->
+  <rect x="580" y="440" width="220" height="80" class="box"/>
+  <text x="690" y="460" class="lbl" font-weight="bold">APB2 外设</text>
+  <text x="690" y="480" class="lbl note">ADC1/2 · USART1 · TIM1 · TIM8</text>
+  <text x="690" y="498" class="lbl note">GPIOA~G · SPI1 · EXTI</text>
+
+  <line x1="720" y1="410" x2="690" y2="440" class="arrow-line" marker-end="url(#arrow)"/>
+
+  <!-- Timer clock note -->
+  <rect x="100" y="555" width="700" height="55" fill="#fff8e1" stroke="#f9a825" stroke-width="1" rx="4"/>
+  <text x="450" y="578" text-anchor="middle" font-size="12" fill="#e65100" font-weight="bold">⚠ 定时器时钟倍频规则</text>
+  <text x="450" y="598" text-anchor="middle" font-size="12" fill="#333">
+    当 APB1 预分频 ≠ 1 时，挂在 APB1 上的定时器时钟 = PCLK1 × 2 = 36 MHz × 2 = 72 MHz
+  </text>
+
+  <!-- RTC/backup -->
+  <text x="820" y="100" class="lbl note" fill="#888">
+    LSI/LSE → RTC
+  </text>
+</svg>

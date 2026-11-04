@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 620" font-family="Consolas, 'Courier New', monospace">
+  <style>
+    .board { fill: #1a5fb4; stroke: #0d3a6b; stroke-width: 2; rx: 8; }
+    .chip { fill: #222; stroke: #000; stroke-width: 1; }
+    .pin-label { font-size: 13px; fill: #fff; font-weight: bold; }
+    .pin-label-power { font-size: 13px; fill: #ffd866; font-weight: bold; }
+    .pin-label-swd { font-size: 13px; fill: #7fff7f; font-weight: bold; }
+    .pin-label-boot { font-size: 13px; fill: #ff9e9e; font-weight: bold; }
+    .title { font-size: 18px; font-weight: bold; fill: #222; }
+    .subtitle { font-size: 12px; fill: #555; }
+    .pin-hole { fill: #0d3a6b; stroke: #ffd866; stroke-width: 1; }
+    .usb { fill: #ccc; stroke: #999; stroke-width: 1; }
+  </style>
+
+  <!-- Title -->
+  <text x="450" y="30" text-anchor="middle" class="title">STM32F103C8T6 Blue Pill 引脚排布图</text>
+  <text x="450" y="50" text-anchor="middle" class="subtitle">LQFP48 封装 · 两侧排针 · 黄色=电源  绿色=SWD调试  红色=BOOT</text>
+
+  <!-- Board body -->
+  <rect x="200" y="80" width="500" height="480" class="board" rx="6"/>
+
+  <!-- USB connector at top -->
+  <rect x="400" y="65" width="100" height="25" class="usb" rx="3"/>
+  <text x="450" y="82" text-anchor="middle" font-size="10" fill="#666">Mini USB</text>
+
+  <!-- Chip in center -->
+  <rect x="370" y="260" width="160" height="120" class="chip" rx="4"/>
+  <text x="450" y="315" text-anchor="middle" font-size="14" fill="#ccc" font-weight="bold">STM32F103C8T6</text>
+  <text x="450" y="335" text-anchor="middle" font-size="10" fill="#888">LQFP48</text>
+
+  <!-- ===== LEFT SIDE pins (left edge of board) ===== -->
+  <!-- Power & misc pins on left, going top to bottom -->
+  <!-- Each pin: hole circle + label to the left -->
+
+  <!-- Left side pins (top to bottom, x=215) -->
+  <!-- Row of holes on left edge -->
+  <g id="left-pins">
+    <!-- Top section: power -->
+    <circle cx="215" cy="110" r="5" class="pin-hole"/><text x="200" y="114" text-anchor="end" class="pin-label-power">3V3</text>
+    <circle cx="215" cy="130" r="5" class="pin-hole"/><text x="200" y="134" text-anchor="end" class="pin-label-power">GND</text>
+    <circle cx="215" cy="150" r="5" class="pin-hole"/><text x="200" y="154" text-anchor="end" class="pin-label-power">5V</text>
+    <circle cx="215" cy="170" r="5" class="pin-hole"/><text x="200" y="174" text-anchor="end" class="pin-label">GND</text>
+
+    <!-- PC13-15 -->
+    <circle cx="215" cy="195" r="5" class="pin-hole"/><text x="200" y="199" text-anchor="end" class="pin-label">PC13</text>
+    <circle cx="215" cy="215" r="5" class="pin-hole"/><text x="200" y="219" text-anchor="end" class="pin-label">PC14</text>
+    <circle cx="215" cy="235" r="5" class="pin-hole"/><text x="200" y="239" text-anchor="end" class="pin-label">PC15</text>
+
+    <!-- PA0-PA8 -->
+    <circle cx="215" cy="260" r="5" class="pin-hole"/><text x="200" y="264" text-anchor="end" class="pin-label">PA0</text>
+    <circle cx="215" cy="280" r="5" class="pin-hole"/><text x="200" y="284" text-anchor="end" class="pin-label">PA1</text>
+    <circle cx="215" cy="300" r="5" class="pin-hole"/><text x="200" y="304" text-anchor="end" class="pin-label">PA2</text>
+    <circle cx="215" cy="320" r="5" class="pin-hole"/><text x="200" y="324" text-anchor="end" class="pin-label">PA3</text>
+    <circle cx="215" cy="340" r="5" class="pin-hole"/><text x="200" y="344" text-anchor="end" class="pin-label">PA4</text>
+    <circle cx="215" cy="360" r="5" class="pin-hole"/><text x="200" y="364" text-anchor="end" class="pin-label">PA5</text>
+    <circle cx="215" cy="380" r="5" class="pin-hole"/><text x="200" y="384" text-anchor="end" class="pin-label">PA6</text>
+    <circle cx="215" cy="400" r="5" class="pin-hole"/><text x="200" y="404" text-anchor="end" class="pin-label">PA7</text>
+    <circle cx="215" cy="420" r="5" class="pin-hole"/><text x="200" y="424" text-anchor="end" class="pin-label">PB0</text>
+    <circle cx="215" cy="440" r="5" class="pin-hole"/><text x="200" y="444" text-anchor="end" class="pin-label">PB1</text>
+    <circle cx="215" cy="460" r="5" class="pin-hole"/><text x="200" y="464" text-anchor="end" class="pin-label-boot">BOOT1</text>
+    <circle cx="215" cy="480" r="5" class="pin-hole"/><text x="200" y="484" text-anchor="end" class="pin-label-power">GND</text>
+    <circle cx="215" cy="500" r="5" class="pin-hole"/><text x="200" y="504" text-anchor="end" class="pin-label-power">3V3</text>
+  </g>
+
+  <!-- ===== RIGHT SIDE pins (right edge of board) ===== -->
+  <g id="right-pins">
+    <!-- Top: SWD pins -->
+    <circle cx="685" cy="110" r="5" class="pin-hole"/><text x="700" y="114" text-anchor="start" class="pin-label-swd">3V3</text>
+    <circle cx="685" cy="130" r="5" class="pin-hole"/><text x="700" y="134" text-anchor="start" class="pin-label-swd">SWDIO (PA13)</text>
+    <circle cx="685" cy="150" r="5" class="pin-hole"/><text x="700" y="154" text-anchor="start" class="pin-label-swd">SWCLK (PA14)</text>
+    <circle cx="685" cy="170" r="5" class="pin-hole"/><text x="700" y="174" text-anchor="start" class="pin-label-swd">GND</text>
+
+    <!-- PA9-PA12 -->
+    <circle cx="685" cy="195" r="5" class="pin-hole"/><text x="700" y="199" text-anchor="start" class="pin-label">PA9</text>
+    <circle cx="685" cy="215" r="5" class="pin-hole"/><text x="700" y="219" text-anchor="start" class="pin-label">PA10</text>
+    <circle cx="685" cy="235" r="5" class="pin-hole"/><text x="700" y="239" text-anchor="start" class="pin-label">PA11</text>
+    <circle cx="685" cy="255" r="5" class="pin-hole"/><text x="700" y="259" text-anchor="start" class="pin-label">PA12</text>
+
+    <!-- PA15, PB3-PB9 -->
+    <circle cx="685" cy="280" r="5" class="pin-hole"/><text x="700" y="284" text-anchor="start" class="pin-label">PA15</text>
+    <circle cx="685" cy="300" r="5" class="pin-hole"/><text x="700" y="304" text-anchor="start" class="pin-label">PB3</text>
+    <circle cx="685" cy="320" r="5" class="pin-hole"/><text x="700" y="324" text-anchor="start" class="pin-label">PB4</text>
+    <circle cx="685" cy="340" r="5" class="pin-hole"/><text x="700" y="344" text-anchor="start" class="pin-label">PB5</text>
+    <circle cx="685" cy="360" r="5" class="pin-hole"/><text x="700" y="364" text-anchor="start" class="pin-label">PB6</text>
+    <circle cx="685" cy="380" r="5" class="pin-hole"/><text x="700" y="384" text-anchor="start" class="pin-label">PB7</text>
+    <circle cx="685" cy="400" r="5" class="pin-hole"/><text x="700" y="404" text-anchor="start" class="pin-label">PB8</text>
+    <circle cx="685" cy="420" r="5" class="pin-hole"/><text x="700" y="424" text-anchor="start" class="pin-label">PB9</text>
+
+    <!-- PB10-PB15 -->
+    <circle cx="685" cy="445" r="5" class="pin-hole"/><text x="700" y="449" text-anchor="start" class="pin-label">PB10</text>
+    <circle cx="685" cy="465" r="5" class="pin-hole"/><text x="700" y="469" text-anchor="start" class="pin-label">PB11</text>
+    <circle cx="685" cy="485" r="5" class="pin-hole"/><text x="700" y="489" text-anchor="start" class="pin-label">PB12</text>
+    <circle cx="685" cy="505" r="5" class="pin-hole"/><text x="700" y="509" text-anchor="start" class="pin-label">PB13</text>
+    <circle cx="685" cy="525" r="5" class="pin-hole"/><text x="700" y="529" text-anchor="start" class="pin-label">PB14</text>
+    <circle cx="685" cy="545" r="5" class="pin-hole"/><text x="700" y="549" text-anchor="start" class="pin-label">PB15</text>
+  </g>
+
+  <!-- BOOT0 jumper annotation -->
+  <rect x="280" y="100" width="60" height="20" fill="#ff9e9e" rx="3" opacity="0.8"/>
+  <text x="310" y="114" text-anchor="middle" font-size="10" fill="#fff" font-weight="bold">BOOT0</text>
+
+  <!-- Reset button -->
+  <rect x="560" y="100" width="40" height="20" fill="#ccc" rx="3"/>
+  <text x="580" y="114" text-anchor="middle" font-size="10" fill="#333">RESET</text>
+
+  <!-- Legend at bottom -->
+  <g transform="translate(250, 585)">
+    <rect x="0" y="-10" width="12" height="12" fill="#ffd866" rx="2"/>
+    <text x="18" y="0" font-size="11" fill="#333">电源引脚</text>
+    <rect x="90" y="-10" width="12" height="12" fill="#7fff7f" rx="2"/>
+    <text x="108" y="0" font-size="11" fill="#333">SWD 调试口</text>
+    <rect x="195" y="-10" width="12" height="12" fill="#ff9e9e" rx="2"/>
+    <text x="213" y="0" font-size="11" fill="#333">BOOT 启动配置</text>
+    <rect x="310" y="-10" width="12" height="12" fill="#fff" stroke="#ccc" rx="2"/>
+    <text x="328" y="0" font-size="11" fill="#333">GPIO 引脚</text>
+  </g>
+</svg>

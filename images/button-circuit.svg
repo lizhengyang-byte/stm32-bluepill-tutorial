@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 520" font-family="Consolas, 'Courier New', monospace" font-size="13">
+  <defs>
+    <marker id="arr3" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#333"/>
+    </marker>
+    <style>
+      .wire { stroke: #333; stroke-width: 1.5; fill: none; }
+      .gpio { fill: #e8f0fe; stroke: #4a7abc; stroke-width: 1.5; rx: 6; }
+      .vcc { fill: #ffebee; stroke: #c62828; stroke-width: 1.5; rx: 4; }
+      .gnd { fill: #e8f5e9; stroke: #2e7d32; stroke-width: 1.5; rx: 4; }
+      .btn { fill: #fff8e1; stroke: #f9a825; stroke-width: 1.5; rx: 4; }
+      .res { fill: #f3e5f5; stroke: #7b1fa2; stroke-width: 1.5; rx: 4; }
+      .lbl { fill: #222; font-size: 12px; text-anchor: middle; }
+      .small { fill: #555; font-size: 11px; }
+      .title { font-size: 15px; font-weight: bold; }
+    </style>
+  </defs>
+
+  <text x="430" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">按键输入电路：两种常见接法</text>
+
+  <!-- ====== Left: Pull-up to GND ====== -->
+  <text x="210" y="60" text-anchor="middle" class="title" fill="#4a7abc">接法一：按键接地（内部上拉）</text>
+
+  <!-- GPIO -->
+  <rect x="60" y="90" width="120" height="50" class="gpio"/>
+  <text x="120" y="112" class="lbl" font-weight="bold">GPIOx_Pin</text>
+  <text x="120" y="130" class="small" text-anchor="middle">输入模式 · 内部上拉</text>
+
+  <!-- VCC line (internal pull-up) -->
+  <rect x="180" y="85" width="50" height="20" class="vcc"/>
+  <text x="205" y="99" class="lbl" font-size="11" fill="#c62828" font-weight="bold">3.3V</text>
+  <line x1="205" y1="105" x2="205" y2="125" class="wire"/>
+  <text x="225" y="118" class="small">内部上拉电阻</text>
+
+  <!-- Wire from GPIO to button -->
+  <line x1="120" y1="140" x2="120" y2="200" class="wire"/>
+  <circle cx="120" cy="200" r="3" fill="#333"/>
+
+  <!-- Button symbol -->
+  <rect x="80" y="200" width="80" height="40" class="btn"/>
+  <line x1="80" y1="220" x2="100" y2="220" class="wire"/>
+  <line x1="140" y1="220" x2="160" y2="220" class="wire"/>
+  <line x1="100" y1="215" x2="140" y2="225" class="wire" stroke-width="2"/>
+  <text x="120" y="255" class="lbl" font-size="11">按键</text>
+
+  <!-- Wire to GND -->
+  <line x1="120" y1="240" x2="120" y2="290" class="wire"/>
+  <rect x="85" y="290" width="70" height="25" class="gnd"/>
+  <text x="120" y="307" class="lbl" fill="#2e7d32" font-weight="bold">GND</text>
+
+  <!-- Reading note -->
+  <rect x="40" y="340" width="340" height="80" fill="#f5f5f5" stroke="#bbb" stroke-width="1" rx="6"/>
+  <text x="210" y="362" text-anchor="middle" class="small" font-weight="bold">电平读取：</text>
+  <text x="210" y="382" text-anchor="middle" class="small">未按下 → 上拉为高电平（1）</text>
+  <text x="210" y="400" text-anchor="middle" class="small">按下 → 接通 GND → 低电平（0）</text>
+  <text x="210" y="418" text-anchor="middle" class="small" fill="#c62828" font-weight="bold">下降沿触发中断（按下瞬间）</text>
+
+  <!-- ====== Right: Pull-down to VCC ====== -->
+  <text x="630" y="60" text-anchor="middle" class="title" fill="#4caf50">接法二：按键接 3.3V（内部下拉）</text>
+
+  <!-- GPIO -->
+  <rect x="570" y="90" width="120" height="50" class="gpio"/>
+  <text x="630" y="112" class="lbl" font-weight="bold">GPIOx_Pin</text>
+  <text x="630" y="130" class="small" text-anchor="middle">输入模式 · 内部下拉</text>
+
+  <!-- GND line (internal pull-down) -->
+  <rect x="690" y="85" width="50" height="20" class="gnd"/>
+  <text x="715" y="99" class="lbl" font-size="11" fill="#2e7d32" font-weight="bold">GND</text>
+  <line x1="715" y1="105" x2="715" y2="125" class="wire"/>
+  <text x="735" y="118" class="small">内部下拉电阻</text>
+
+  <!-- Wire from GPIO to button -->
+  <line x1="630" y1="140" x2="630" y2="200" class="wire"/>
+  <circle cx="630" cy="200" r="3" fill="#333"/>
+
+  <!-- Button symbol -->
+  <rect x="590" y="200" width="80" height="40" class="btn"/>
+  <line x1="590" y1="220" x2="610" y2="220" class="wire"/>
+  <line x1="650" y1="220" x2="670" y2="220" class="wire"/>
+  <line x1="610" y1="215" x2="650" y2="225" class="wire" stroke-width="2"/>
+  <text x="630" y="255" class="lbl" font-size="11">按键</text>
+
+  <!-- Wire to VCC -->
+  <line x1="630" y1="240" x2="630" y2="290" class="wire"/>
+  <rect x="595" y="290" width="70" height="25" class="vcc"/>
+  <text x="630" y="307" class="lbl" fill="#c62828" font-weight="bold">3.3V</text>
+
+  <!-- Reading note -->
+  <rect x="460" y="340" width="340" height="80" fill="#f5f5f5" stroke="#bbb" stroke-width="1" rx="6"/>
+  <text x="630" y="362" text-anchor="middle" class="small" font-weight="bold">电平读取：</text>
+  <text x="630" y="382" text-anchor="middle" class="small">未按下 → 下拉为低电平（0）</text>
+  <text x="630" y="400" text-anchor="middle" class="small">按下 → 接通 3.3V → 高电平（1）</text>
+  <text x="630" y="418" text-anchor="middle" class="small" fill="#c62828" font-weight="bold">上升沿触发中断（按下瞬间）</text>
+
+  <!-- Bottom note: external 10K resistor -->
+  <rect x="100" y="450" width="660" height="50" fill="#fff8e1" stroke="#f9a825" stroke-width="1" rx="6"/>
+  <text x="430" y="472" text-anchor="middle" class="small" font-weight="bold" fill="#e65100">💡 小贴士：外部 10K 上拉电阻</text>
+  <text x="430" y="490" text-anchor="middle" class="small">若不用内部上下拉，可在 GPIO 与 3.3V/GND 之间接一个 10KΩ 电阻作为外部上拉/下拉</text>
+</svg>

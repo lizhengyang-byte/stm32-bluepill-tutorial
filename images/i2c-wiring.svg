@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" font-family="Arial, sans-serif">
+  <text x="400" y="28" text-anchor="middle" font-size="20" font-weight="bold">I2C 两线总线连接图（主从结构）</text>
+
+  <!-- 3.3V rail -->
+  <line x1="100" y1="70" x2="700" y2="70" stroke="#c0392b" stroke-width="2"/>
+  <text x="80" y="75" text-anchor="end" font-size="13" fill="#c0392b" font-weight="bold">3.3V</text>
+
+  <!-- Pull-up resistors -->
+  <rect x="240" y="70" width="12" height="40" fill="#fff" stroke="#333" stroke-width="1.5"/>
+  <text x="246" y="125" text-anchor="middle" font-size="10" fill="#555">4.7kΩ</text>
+  <line x1="246" y1="110" x2="246" y2="130" stroke="#333" stroke-width="1.5"/>
+
+  <rect x="540" y="70" width="12" height="40" fill="#fff" stroke="#333" stroke-width="1.5"/>
+  <text x="546" y="125" text-anchor="middle" font-size="10" fill="#555">4.7kΩ</text>
+  <line x1="546" y1="110" x2="546" y2="130" stroke="#333" stroke-width="1.5"/>
+
+  <!-- SDA bus line -->
+  <line x1="100" y1="130" x2="700" y2="130" stroke="#2980b9" stroke-width="2.5"/>
+  <text x="90" y="135" text-anchor="end" font-size="13" fill="#2980b9" font-weight="bold">SDA</text>
+
+  <!-- SCL bus line -->
+  <line x1="100" y1="180" x2="700" y2="180" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="90" y="185" text-anchor="end" font-size="13" fill="#27ae60" font-weight="bold">SCL</text>
+
+  <!-- Master: STM32 -->
+  <rect x="120" y="230" width="140" height="130" rx="8" fill="#e8f4fd" stroke="#2980b9" stroke-width="2"/>
+  <text x="190" y="255" text-anchor="middle" font-size="14" font-weight="bold" fill="#2980b9">STM32 (主设备)</text>
+  <text x="190" y="275" text-anchor="middle" font-size="11" fill="#7f8c8d">I2C1</text>
+  <rect x="140" y="290" width="50" height="22" rx="3" fill="#2980b9"/>
+  <text x="165" y="306" text-anchor="middle" font-size="11" fill="white">PB7=SDA</text>
+  <rect x="195" y="290" width="50" height="22" rx="3" fill="#27ae60"/>
+  <text x="220" y="306" text-anchor="middle" font-size="11" fill="white">PB6=SCL</text>
+  <line x1="165" y1="290" x2="165" y2="130" stroke="#2980b9" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <line x1="220" y1="290" x2="220" y2="180" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,2"/>
+
+  <!-- Slave A: OLED -->
+  <rect x="340" y="230" width="130" height="130" rx="8" fill="#fef9e7" stroke="#f39c12" stroke-width="2"/>
+  <text x="405" y="255" text-anchor="middle" font-size="13" font-weight="bold" fill="#f39c12">OLED SSD1306</text>
+  <text x="405" y="275" text-anchor="middle" font-size="11" fill="#7f8c8d">从设备 A</text>
+  <text x="405" y="295" text-anchor="middle" font-size="11" fill="#f39c12">地址: 0x3C</text>
+  <text x="405" y="315" text-anchor="middle" font-size="10" fill="#7f8c8d">(0x78 写地址)</text>
+  <line x1="405" y1="230" x2="405" y2="130" stroke="#2980b9" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <line x1="405" y1="230" x2="405" y2="180" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,2"/>
+
+  <!-- Slave B: Sensor -->
+  <rect x="560" y="230" width="130" height="130" rx="8" fill="#eafaf1" stroke="#27ae60" stroke-width="2"/>
+  <text x="625" y="255" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">I2C 传感器</text>
+  <text x="625" y="275" text-anchor="middle" font-size="11" fill="#7f8c8d">从设备 B</text>
+  <text x="625" y="295" text-anchor="middle" font-size="11" fill="#27ae60">地址: 0x44</text>
+  <text x="625" y="315" text-anchor="middle" font-size="10" fill="#7f8c8d">(如 SHT30)</text>
+  <line x1="625" y1="230" x2="625" y2="130" stroke="#2980b9" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <line x1="625" y1="230" x2="625" y2="180" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,2"/>
+
+  <!-- Bottom note -->
+  <rect x="100" y="380" width="600" height="30" rx="5" fill="#f8f9fa" stroke="#dee2e6"/>
+  <text x="400" y="400" text-anchor="middle" font-size="12" fill="#495057">
+    两根线 SDA(数据) + SCL(时钟) 挂多个从设备，靠 7 位地址区分；SDA/SCL 需上拉电阻到 3.3V
+  </text>
+</svg>

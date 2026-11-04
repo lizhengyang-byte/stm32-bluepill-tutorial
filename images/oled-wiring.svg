@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 380" font-family="Arial, sans-serif">
+  <text x="350" y="28" text-anchor="middle" font-size="20" font-weight="bold">OLED (SSD1306 I2C) 接线图</text>
+
+  <!-- OLED module -->
+  <rect x="80" y="80" width="200" height="200" rx="8" fill="#fef9e7" stroke="#f39c12" stroke-width="2"/>
+  <text x="180" y="105" text-anchor="middle" font-size="15" font-weight="bold" fill="#f39c12">OLED 0.96"</text>
+  <text x="180" y="125" text-anchor="middle" font-size="11" fill="#7f8c8d">SSD1306 I2C 4针版</text>
+
+  <!-- OLED pins -->
+  <rect x="230" y="145" width="50" height="22" rx="3" fill="#c0392b"/>
+  <text x="255" y="161" text-anchor="middle" font-size="11" fill="white" font-weight="bold">VCC</text>
+
+  <rect x="230" y="180" width="50" height="22" rx="3" fill="#7f8c8d"/>
+  <text x="255" y="196" text-anchor="middle" font-size="11" fill="white" font-weight="bold">GND</text>
+
+  <rect x="230" y="215" width="50" height="22" rx="3" fill="#27ae60"/>
+  <text x="255" y="231" text-anchor="middle" font-size="11" fill="white" font-weight="bold">SCL</text>
+
+  <rect x="230" y="250" width="50" height="22" rx="3" fill="#2980b9"/>
+  <text x="255" y="266" text-anchor="middle" font-size="11" fill="white" font-weight="bold">SDA</text>
+
+  <!-- STM32 -->
+  <rect x="420" y="80" width="200" height="200" rx="8" fill="#e8f4fd" stroke="#2980b9" stroke-width="2"/>
+  <text x="520" y="105" text-anchor="middle" font-size="15" font-weight="bold" fill="#2980b9">STM32 Blue Pill</text>
+
+  <!-- STM32 pins -->
+  <rect x="420" y="145" width="50" height="22" rx="3" fill="#c0392b"/>
+  <text x="445" y="161" text-anchor="middle" font-size="11" fill="white" font-weight="bold">3V3</text>
+
+  <rect x="420" y="180" width="50" height="22" rx="3" fill="#7f8c8d"/>
+  <text x="445" y="196" text-anchor="middle" font-size="11" fill="white" font-weight="bold">GND</text>
+
+  <rect x="420" y="215" width="50" height="22" rx="3" fill="#27ae60"/>
+  <text x="445" y="231" text-anchor="middle" font-size="11" fill="white" font-weight="bold">PB6</text>
+
+  <rect x="420" y="250" width="50" height="22" rx="3" fill="#2980b9"/>
+  <text x="445" y="266" text-anchor="middle" font-size="11" fill="white" font-weight="bold">PB7</text>
+
+  <!-- Wires -->
+  <line x1="280" y1="156" x2="420" y2="156" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="350" y="148" text-anchor="middle" font-size="11" fill="#c0392b">VCC → 3.3V</text>
+
+  <line x1="280" y1="191" x2="420" y2="191" stroke="#7f8c8d" stroke-width="2.5"/>
+  <text x="350" y="183" text-anchor="middle" font-size="11" fill="#7f8c8d">GND → GND</text>
+
+  <line x1="280" y1="226" x2="420" y2="226" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="350" y="218" text-anchor="middle" font-size="11" fill="#27ae60">SCL → PB6 (I2C1_SCL)</text>
+
+  <line x1="280" y1="261" x2="420" y2="261" stroke="#2980b9" stroke-width="2.5"/>
+  <text x="350" y="253" text-anchor="middle" font-size="11" fill="#2980b9">SDA → PB7 (I2C1_SDA)</text>
+
+  <!-- Note -->
+  <rect x="80" y="310" width="540" height="50" rx="5" fill="#f8f9fa" stroke="#dee2e6"/>
+  <text x="350" y="330" text-anchor="middle" font-size="12" fill="#495057">I2C 地址：0x3C（7位）→ 写地址 0x78</text>
+  <text x="350" y="350" text-anchor="middle" font-size="11" fill="#7f8c8d">标准模式 100kHz 即可；蓝pill板上 SDA/SCL 通常已有上拉电阻</text>
+</svg>

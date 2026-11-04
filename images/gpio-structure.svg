@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 480" font-family="Consolas, 'Courier New', monospace">
+  <style>
+    .title { font-size: 18px; font-weight: bold; fill: #222; }
+    .subtitle { font-size: 12px; fill: #555; }
+    .block { fill: #e8f0fe; stroke: #1a5fb4; stroke-width: 2; rx: 5; }
+    .block-register { fill: #fff3e0; stroke: #e67e22; stroke-width: 2; rx: 5; }
+    .block-mos { fill: #e8f5e9; stroke: #27ae60; stroke-width: 2; rx: 4; }
+    .block-pull { fill: #f3e5f5; stroke: #8e44ad; stroke-width: 1.5; rx: 4; }
+    .wire { stroke: #333; stroke-width: 2; fill: none; }
+    .wire-control { stroke: #1a5fb4; stroke-width: 1.5; fill: none; stroke-dasharray: 5,3; }
+    .label { font-size: 12px; fill: #333; }
+    .label-bold { font-size: 13px; fill: #222; font-weight: bold; }
+    .block-text { font-size: 13px; fill: #222; font-weight: bold; text-anchor: middle; }
+    .block-text-sm { font-size: 11px; fill: #444; text-anchor: middle; }
+    .vdd-label { font-size: 13px; fill: #e67e22; font-weight: bold; }
+    .vss-label { font-size: 13px; fill: #2c3e50; font-weight: bold; }
+    .pin-circle { fill: #fff; stroke: #333; stroke-width: 2; }
+  </style>
+
+  <text x="430" y="28" text-anchor="middle" class="title">GPIO 推挽输出结构示意（Push-Pull）</text>
+  <text x="430" y="48" text-anchor="middle" class="subtitle">写 ODR → 输出控制 → 两个 MOS 管推挽驱动 → 引脚</text>
+
+  <!-- ODR Register -->
+  <rect x="40" y="180" width="120" height="60" class="block-register"/>
+  <text x="100" y="205" class="block-text">ODR 寄存器</text>
+  <text x="100" y="222" class="block-text-sm">Output Data</text>
+  <text x="100" y="235" class="block-text-sm">写 1=高, 写 0=低</text>
+
+  <!-- Arrow ODR -> Output control -->
+  <line x1="160" y1="210" x2="220" y2="210" class="wire" marker-end="url(#arrow)"/>
+
+  <!-- Output control block -->
+  <rect x="220" y="170" width="130" height="80" class="block"/>
+  <text x="285" y="195" class="block-text">输出控制</text>
+  <text x="285" y="212" class="block-text-sm">（双路反相器）</text>
+  <text x="285" y="228" class="block-text-sm">根据 ODR 值</text>
+  <text x="285" y="242" class="block-text-sm">驱动上/下管</text>
+
+  <!-- VDD rail -->
+  <line x1="430" y1="80" x2="650" y2="80" stroke="#e67e22" stroke-width="3"/>
+  <text x="430" y="72" class="vdd-label">VDD (3.3V)</text>
+
+  <!-- VSS rail -->
+  <line x1="430" y1="400" x2="650" y2="400" stroke="#2c3e50" stroke-width="3"/>
+  <text x="430" y="420" class="vss-label">VSS (0V)</text>
+
+  <!-- P-MOS (top) -->
+  <rect x="450" y="120" width="80" height="70" class="block-mos"/>
+  <text x="490" y="148" class="block-text" fill="#27ae60">P-MOS</text>
+  <text x="490" y="165" class="block-text-sm">上拉管</text>
+  <text x="490" y="180" class="block-text-sm">(PMOS)</text>
+
+  <!-- N-MOS (bottom) -->
+  <rect x="450" y="310" width="80" height="70" class="block-mos"/>
+  <text x="490" y="338" class="block-text" fill="#27ae60">N-MOS</text>
+  <text x="490" y="355" class="block-text-sm">下拉管</text>
+  <text x="490" y="370" class="block-text-sm">(NMOS)</text>
+
+  <!-- Connections: VDD to P-MOS -->
+  <line x1="490" y1="80" x2="490" y2="120" class="wire"/>
+  <!-- P-MOS to output node -->
+  <line x1="490" y1="190" x2="490" y2="250" class="wire"/>
+
+  <!-- N-MOS to output node -->
+  <line x1="490" y1="310" x2="490" y2="250" class="wire"/>
+  <!-- N-MOS to VSS -->
+  <line x1="490" y1="380" x2="490" y2="400" class="wire"/>
+
+  <!-- Output node -->
+  <circle cx="490" cy="250" r="5" fill="#333"/>
+
+  <!-- Output to pin -->
+  <line x1="490" y1="250" x2="680" y2="250" class="wire"/>
+  <circle cx="700" cy="250" r="10" class="pin-circle"/>
+  <text x="700" y="254" text-anchor="middle" font-size="11" font-weight="bold">I/O</text>
+  <text x="700" y="280" text-anchor="middle" class="label-bold">MCU 引脚</text>
+  <text x="700" y="295" text-anchor="middle" class="label">(如 PB0 / PC13)</text>
+
+  <!-- Control lines from output control to MOS gates -->
+  <path d="M 350 190 L 400 190 L 400 140 L 450 140" class="wire-control"/>
+  <text x="395" y="135" text-anchor="end" font-size="10" fill="#1a5fb4">栅极驱动</text>
+
+  <path d="M 350 230 L 400 230 L 400 345 L 450 345" class="wire-control"/>
+  <text x="395" y="355" text-anchor="end" font-size="10" fill="#1a5fb4">栅极驱动</text>
+
+  <!-- Pull-up/Pull-down resistors (optional, dashed) -->
+  <rect x="580" y="130" width="90" height="50" class="block-pull" stroke-dasharray="4,3"/>
+  <text x="625" y="150" class="block-text-sm" fill="#8e44ad">上拉电阻</text>
+  <text x="625" y="165" class="block-text-sm" fill="#8e44ad">(可配置, 默认关)</text>
+
+  <rect x="580" y="320" width="90" height="50" class="block-pull" stroke-dasharray="4,3"/>
+  <text x="625" y="340" class="block-text-sm" fill="#8e44ad">下拉电阻</text>
+  <text x="625" y="355" class="block-text-sm" fill="#8e44ad">(可配置, 默认关)</text>
+
+  <!-- Protection diodes note -->
+  <text x="625" y="200" text-anchor="middle" font-size="10" fill="#999">保护二极管</text>
+  <text x="625" y="213" text-anchor="middle" font-size="10" fill="#999">(钳位保护)</text>
+
+  <!-- Explanation at bottom -->
+  <g transform="translate(40, 440)">
+    <rect x="0" y="-20" width="780" height="35" fill="#f8f9fa" stroke="#dee2e6" rx="4"/>
+    <text x="390" y="2" text-anchor="middle" font-size="11" fill="#444">
+      推挽原理：ODR=1 → P-MOS 导通、N-MOS 截止 → 引脚连 VDD（输出高 3.3V）；ODR=0 → N-MOS 导通、P-MOS 截止 → 引脚连 VSS（输出低 0V）
+    </text>
+  </g>
+
+  <!-- Arrow marker definition -->
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#333"/>
+    </marker>
+  </defs>
+</svg>

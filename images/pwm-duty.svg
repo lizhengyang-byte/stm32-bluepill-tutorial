@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 560" font-family="Consolas, 'Courier New', monospace" font-size="13">
+  <defs>
+    <style>
+      .wave { fill: none; stroke: #2e7d32; stroke-width: 2.5; }
+      .axis { stroke: #999; stroke-width: 1; }
+      .grid { stroke: #e0e0e0; stroke-width: 0.5; stroke-dasharray: 3; }
+      .lbl { fill: #222; font-size: 12px; }
+      .big { font-size: 15px; font-weight: bold; }
+      .duty { fill: #c62828; font-weight: bold; }
+      .formula { fill: #c62828; font-weight: bold; }
+      .scope-bg { fill: #1a1a1a; }
+      .scope-grid { stroke: #2e7d32; stroke-width: 0.5; opacity: 0.3; }
+    </style>
+  </defs>
+
+  <text x="430" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">PWM 波形与占空比示意</text>
+
+  <!-- Scope background -->
+  <rect x="40" y="50" width="780" height="420" class="scope-bg" rx="8"/>
+  <!-- Scope grid -->
+  <g opacity="0.2">
+    <line x1="40" y1="130" x2="820" y2="130" class="scope-grid"/>
+    <line x1="40" y1="220" x2="820" y2="220" class="scope-grid"/>
+    <line x1="40" y1="310" x2="820" y2="310" class="scope-grid"/>
+    <line x1="40" y1="400" x2="820" y2="400" class="scope-grid"/>
+  </g>
+
+  <!-- ====== Wave 1: 25% duty ====== -->
+  <text x="55" y="90" class="lbl" fill="#4caf50" font-weight="bold">25%</text>
+  <!-- Period T marker -->
+  <line x1="150" y1="75" x2="750" y2="75" stroke="#ffc107" stroke-width="1"/>
+  <line x1="150" y1="70" x2="150" y2="80" stroke="#ffc107" stroke-width="1"/>
+  <line x1="750" y1="70" x2="750" y2="80" stroke="#ffc107" stroke-width="1"/>
+  <text x="450" y="68" text-anchor="middle" font-size="11" fill="#ffc107">一个周期 T</text>
+  <!-- Waveform: 25% high, 75% low -->
+  <polyline points="150,120 300,120 300,85 600,85 600,120 750,120" 
+            fill="none" stroke="#4caf50" stroke-width="2.5"/>
+  <!-- High time marker -->
+  <line x1="300" y1="95" x2="600" y2="95" stroke="#ffc107" stroke-width="1.5"/>
+  <line x1="300" y1="90" x2="300" y2="100" stroke="#ffc107" stroke-width="1"/>
+  <line x1="600" y1="90" x2="600" y2="100" stroke="#ffc107" stroke-width="1"/>
+  <text x="450" y="88" text-anchor="middle" font-size="10" fill="#ffc107">高电平时间 t</text>
+  <text x="800" y="105" class="duty" fill="#4caf50" font-size="13">占空比 = 25%</text>
+
+  <!-- ====== Wave 2: 50% duty ====== -->
+  <text x="55" y="200" class="lbl" fill="#2196f3" font-weight="bold">50%</text>
+  <polyline points="150,230 270,230 270,195 510,195 510,230 750,230" 
+            fill="none" stroke="#2196f3" stroke-width="2.5"/>
+  <text x="800" y="215" class="duty" fill="#2196f3" font-size="13">占空比 = 50%</text>
+
+  <!-- ====== Wave 3: 75% duty ====== -->
+  <text x="55" y="310" class="lbl" fill="#e91e63" font-weight="bold">75%</text>
+  <polyline points="150,340 210,340 210,305 630,305 630,340 750,340" 
+            fill="none" stroke="#e91e63" stroke-width="2.5"/>
+  <text x="800" y="325" class="duty" fill="#e91e63" font-size="13">占空比 = 75%</text>
+
+  <!-- Legend / explanation -->
+  <rect x="60" y="380" width="760" height="75" fill="#263238" stroke="#455a64" stroke-width="1" rx="6"/>
+  <text x="440" y="405" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffc107">
+    占空比（Duty Cycle）= CCR / (ARR + 1) × 100%
+  </text>
+  <text x="440" y="430" text-anchor="middle" font-size="12" fill="#b0bec5">
+    CCR = 捕获比较寄存器值（决定高电平持续时间） · ARR = 自动重装载值（决定周期 T）
+  </text>
+
+  <!-- Bottom formula -->
+  <rect x="100" y="490" width="660" height="50" fill="#fff8e1" stroke="#f9a825" stroke-width="1.5" rx="6"/>
+  <text x="430" y="515" text-anchor="middle" font-size="13" fill="#e65100" font-weight="bold">
+    应用：呼吸灯（占空比 0%→100% 渐变）· 舵机控制（占空比 2.5%~12.5% 对应角度 0°~180°）
+  </text>
+</svg>

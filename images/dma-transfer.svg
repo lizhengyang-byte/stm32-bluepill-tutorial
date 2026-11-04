@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" font-family="Arial, sans-serif">
+  <text x="400" y="28" text-anchor="middle" font-size="20" font-weight="bold">DMA 数据搬运原理对比</text>
+
+  <!-- ===== Without DMA ===== -->
+  <text x="400" y="60" text-anchor="middle" font-size="16" font-weight="bold" fill="#c0392b">无 DMA：CPU 逐字节搬运</text>
+
+  <!-- CPU box -->
+  <rect x="80" y="80" width="140" height="70" rx="8" fill="#fdedec" stroke="#c0392b" stroke-width="2"/>
+  <text x="150" y="110" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">CPU</text>
+  <text x="150" y="130" text-anchor="middle" font-size="11" fill="#7f8c8d">全程忙碌</text>
+
+  <!-- Peripheral -->
+  <rect x="580" y="80" width="140" height="70" rx="8" fill="#e8f4fd" stroke="#2980b9" stroke-width="2"/>
+  <text x="650" y="110" text-anchor="middle" font-size="13" font-weight="bold" fill="#2980b9">外设</text>
+  <text x="650" y="130" text-anchor="middle" font-size="11" fill="#7f8c8d">(USART1/ADC)</text>
+
+  <!-- Memory -->
+  <rect x="330" y="80" width="140" height="70" rx="8" fill="#eafaf1" stroke="#27ae60" stroke-width="2"/>
+  <text x="400" y="110" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">内存缓冲</text>
+  <text x="400" y="130" text-anchor="middle" font-size="11" fill="#7f8c8d">rx_buf[]</text>
+
+  <!-- Arrows: CPU reads, CPU writes -->
+  <path d="M580,105 L470,105" stroke="#2980b9" stroke-width="2" marker-end="url(#aRed)"/>
+  <text x="525" y="98" text-anchor="middle" font-size="10" fill="#2980b9">读寄存器</text>
+  <path d="M330,125 L220,125" stroke="#c0392b" stroke-width="2" marker-end="url(#aRed)"/>
+  <text x="275" y="118" text-anchor="middle" font-size="10" fill="#c0392b">写内存</text>
+
+  <defs>
+    <marker id="aRed" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#555"/></marker>
+  </defs>
+
+  <text x="400" y="175" text-anchor="middle" font-size="12" fill="#c0392b">每搬一个字节都要 CPU 介入 → 搬运期间 CPU 无法做其他事</text>
+
+  <!-- Divider -->
+  <line x1="50" y1="200" x2="750" y2="200" stroke="#bdc3c7" stroke-width="1.5" stroke-dasharray="8,4"/>
+
+  <!-- ===== With DMA ===== -->
+  <text x="400" y="230" text-anchor="middle" font-size="16" font-weight="bold" fill="#27ae60">有 DMA：DMA 控制器自动搬运</text>
+
+  <!-- CPU box (idle) -->
+  <rect x="80" y="250" width="140" height="70" rx="8" fill="#ecf0f1" stroke="#95a5a6" stroke-width="2"/>
+  <text x="150" y="280" text-anchor="middle" font-size="14" font-weight="bold" fill="#95a5a6">CPU</text>
+  <text x="150" y="300" text-anchor="middle" font-size="11" fill="#95a5a6">空闲，可做别的</text>
+
+  <!-- DMA controller box -->
+  <rect x="310" y="250" width="180" height="70" rx="8" fill="#eafaf1" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="400" y="278" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">DMA1 控制器</text>
+  <text x="400" y="298" text-anchor="middle" font-size="11" fill="#7f8c8d">硬件自动搬运</text>
+
+  <!-- Peripheral -->
+  <rect x="580" y="250" width="140" height="70" rx="8" fill="#e8f4fd" stroke="#2980b9" stroke-width="2"/>
+  <text x="650" y="280" text-anchor="middle" font-size="13" font-weight="bold" fill="#2980b9">外设</text>
+  <text x="650" y="300" text-anchor="middle" font-size="11" fill="#7f8c8d">USART1_RX</text>
+
+  <!-- Memory -->
+  <rect x="310" y="360" width="180" height="60" rx="8" fill="#eafaf1" stroke="#27ae60" stroke-width="2"/>
+  <text x="400" y="385" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">内存缓冲 rx_buf[32]</text>
+  <text x="400" y="405" text-anchor="middle" font-size="11" fill="#7f8c8d">DMA 自动写入</text>
+
+  <!-- DMA arrows -->
+  <path d="M580,285 L490,285" stroke="#27ae60" stroke-width="2.5" marker-end="url(#aGreen)"/>
+  <text x="535" y="278" text-anchor="middle" font-size="10" fill="#27ae60">外设→DMA</text>
+  <path d="M400,320 L400,360" stroke="#27ae60" stroke-width="2.5" marker-end="url(#aGreen)"/>
+  <text x="445" y="345" font-size="10" fill="#27ae60">DMA→内存</text>
+
+  <defs>
+    <marker id="aGreen" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#27ae60"/></marker>
+  </defs>
+
+  <!-- Interrupt notification -->
+  <path d="M310,285 L220,285" stroke="#f39c12" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#aOrange)"/>
+  <text x="265" y="278" text-anchor="middle" font-size="10" fill="#f39c12">搬完中断通知</text>
+  <defs>
+    <marker id="aOrange" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#f39c12"/></marker>
+  </defs>
+
+  <!-- Config elements -->
+  <rect x="80" y="360" width="200" height="110" rx="6" fill="#f8f9fa" stroke="#dee2e6" stroke-width="1"/>
+  <text x="180" y="380" text-anchor="middle" font-size="12" font-weight="bold" fill="#495057">DMA 配置五要素</text>
+  <text x="90" y="400" font-size="11" fill="#495057">• 方向：外设→内存</text>
+  <text x="90" y="418" font-size="11" fill="#495057">• 外设地址：USART1_DR</text>
+  <text x="90" y="436" font-size="11" fill="#495057">• 内存地址：rx_buf</text>
+  <text x="90" y="454" font-size="11" fill="#495057">• 长度：32 字节 / 模式：Circular</text>
+
+  <rect x="500" y="440" width="250" height="60" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1"/>
+  <text x="625" y="465" text-anchor="middle" font-size="12" fill="#27ae60" font-weight="bold">搬运期间 CPU 全程空闲</text>
+  <text x="625" y="485" text-anchor="middle" font-size="11" fill="#27ae60">搬完才用中断唤醒 CPU 处理数据</text>
+</svg>

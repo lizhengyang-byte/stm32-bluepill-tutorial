@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" font-family="Arial, sans-serif">
+  <text x="400" y="28" text-anchor="middle" font-size="20" font-weight="bold">SPI 四线连接图（主从结构）</text>
+
+  <!-- Master: STM32 -->
+  <rect x="80" y="100" width="220" height="240" rx="8" fill="#e8f4fd" stroke="#2980b9" stroke-width="2"/>
+  <text x="190" y="130" text-anchor="middle" font-size="15" font-weight="bold" fill="#2980b9">STM32 (主设备)</text>
+  <text x="190" y="150" text-anchor="middle" font-size="12" fill="#7f8c8d">SPI1</text>
+
+  <!-- Master pins -->
+  <rect x="230" y="170" width="70" height="25" rx="3" fill="#8e44ad"/>
+  <text x="265" y="187" text-anchor="middle" font-size="11" fill="white" font-weight="bold">PA5=SCK</text>
+
+  <rect x="230" y="210" width="70" height="25" rx="3" fill="#2980b9"/>
+  <text x="265" y="227" text-anchor="middle" font-size="11" fill="white" font-weight="bold">PA7=MOSI</text>
+
+  <rect x="230" y="250" width="70" height="25" rx="3" fill="#27ae60"/>
+  <text x="265" y="267" text-anchor="middle" font-size="11" fill="white" font-weight="bold">PA6=MISO</text>
+
+  <rect x="230" y="290" width="70" height="25" rx="3" fill="#e67e22"/>
+  <text x="265" y="307" text-anchor="middle" font-size="11" fill="white" font-weight="bold">PA4=CS</text>
+
+  <!-- Slave: OLED -->
+  <rect x="500" y="100" width="220" height="240" rx="8" fill="#fef9e7" stroke="#f39c12" stroke-width="2"/>
+  <text x="610" y="130" text-anchor="middle" font-size="15" font-weight="bold" fill="#f39c12">OLED (从设备)</text>
+  <text x="610" y="150" text-anchor="middle" font-size="12" fill="#7f8c8d">SSD1306 SPI 版</text>
+
+  <!-- Slave pins -->
+  <rect x="500" y="170" width="70" height="25" rx="3" fill="#8e44ad"/>
+  <text x="535" y="187" text-anchor="middle" font-size="11" fill="white" font-weight="bold">SCK</text>
+
+  <rect x="500" y="210" width="70" height="25" rx="3" fill="#2980b9"/>
+  <text x="535" y="227" text-anchor="middle" font-size="11" fill="white" font-weight="bold">SDA(MOSI)</text>
+
+  <rect x="500" y="250" width="70" height="25" rx="3" fill="#27ae60"/>
+  <text x="535" y="267" text-anchor="middle" font-size="11" fill="white" font-weight="bold">SDO(MISO)</text>
+
+  <rect x="500" y="290" width="70" height="25" rx="3" fill="#e67e22"/>
+  <text x="535" y="307" text-anchor="middle" font-size="11" fill="white" font-weight="bold">CS</text>
+
+  <!-- Connection lines -->
+  <line x1="300" y1="182" x2="500" y2="182" stroke="#8e44ad" stroke-width="2.5"/>
+  <text x="400" y="175" text-anchor="middle" font-size="11" fill="#8e44ad">时钟信号（主机产生）</text>
+
+  <line x1="300" y1="222" x2="500" y2="222" stroke="#2980b9" stroke-width="2.5"/>
+  <text x="400" y="215" text-anchor="middle" font-size="11" fill="#2980b9">主发从收 (Master Out → Slave In)</text>
+
+  <line x1="300" y1="262" x2="500" y2="262" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="400" y="255" text-anchor="middle" font-size="11" fill="#27ae60">从发主收 (Slave Out → Master In)</text>
+
+  <line x1="300" y1="302" x2="500" y2="302" stroke="#e67e22" stroke-width="2.5"/>
+  <text x="400" y="295" text-anchor="middle" font-size="11" fill="#e67e22">片选（低电平选中此从机）</text>
+
+  <!-- Bottom note -->
+  <rect x="80" y="360" width="640" height="30" rx="5" fill="#f8f9fa" stroke="#dee2e6"/>
+  <text x="400" y="380" text-anchor="middle" font-size="12" fill="#495057">
+    四线全双工：SCK(时钟) + MOSI(主发) + MISO(主收) + CS(片选)；一从机一 CS 线
+  </text>
+</svg>
